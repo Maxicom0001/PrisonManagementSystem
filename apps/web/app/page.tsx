@@ -5,8 +5,17 @@ import Link from "next/link"
 import { Building2, Users, Briefcase, Settings } from "lucide-react"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { motion } from "framer-motion"
+import { useHeader } from "@/components/providers/header-title-provider"
+import { useEffect } from "react"
 
 export default function PrisonHomepage() {
+
+    const { setTitle } = useHeader()
+
+    useEffect(() => {
+        setTitle("Home")
+    },[])
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
