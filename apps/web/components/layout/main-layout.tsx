@@ -22,7 +22,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           <AppSidebar />
           <SidebarInset>
             <Topbar/>
-            <main className="flex-1 p-4">{children}</main>
+            <main className="flex items-center justify-center h-full w-full">{children}</main>
           </SidebarInset>
         </div>
       </SidebarProvider>
