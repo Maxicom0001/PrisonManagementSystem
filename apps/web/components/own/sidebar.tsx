@@ -36,8 +36,8 @@ export default function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">My App</span>
-                  <span className="text-xs text-muted-foreground">v1.0.0</span>
+                  <span className="font-semibold">Prison Managment System</span>
+                  <span className="text-xs text-muted-foreground">v0.1.1</span>
                 </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -109,6 +109,8 @@ export default function AppSidebar() {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
+
+          <SidebarSeparator />
   
           <SidebarGroup>
             <SidebarGroupLabel>Analytics</SidebarGroupLabel>
