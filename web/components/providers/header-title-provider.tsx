@@ -14,7 +14,14 @@ type HeaderContextType = {
 const HeaderContext = createContext<HeaderContextType | undefined>(undefined)
 
 export function HeaderProvider({ children }: { children: React.ReactNode }) {
-  const [header, setHeader] = useState([{title: "", href: ""}])
+  const [header, setHeaderState] = useState([{title: "", href: ""}])
+
+    const setHeader = (newHeader: { title: string, href: string }[]) => {
+    setTimeout(() => {
+      setHeaderState(newHeader)
+    }, 300) // Opóźnienie w ms (możesz dostosować ten czas)
+  }
+
   return (
     <HeaderContext.Provider value={{ header, setHeader }}>
       {children}
