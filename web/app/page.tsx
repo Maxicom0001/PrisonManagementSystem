@@ -7,7 +7,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/comp
 import { motion } from "framer-motion"
 import { useHeader } from "@/components/providers/header-title-provider"
 import { useEffect } from "react"
-import { PrisonersCounter, WorkersCounter, LastUpdateCounter, ActiveJobsCounter } from "./statistics"
+import { PrisonersCounter, WorkersCounter, LastUpdateCounter, ActiveJobsCounter } from "../components/own/statistics"
 import { ScrollingLoader } from "@/components/own/scrolling-loader"
 
 export default function PrisonHomepage() {
