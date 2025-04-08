@@ -7,6 +7,8 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/comp
 import { motion } from "framer-motion"
 import { useHeader } from "@/components/providers/header-title-provider"
 import { useEffect } from "react"
+import { PrisonersCounter, WorkersCounter, LastUpdateCounter, ActiveJobsCounter } from "./statistics"
+import { ScrollingLoader } from "@/components/own/scrolling-loader"
 
 export default function PrisonHomepage() {
 
@@ -67,30 +69,29 @@ export default function PrisonHomepage() {
 
   return (
     <motion.div
-      className="w-full max-w-7xl mx-auto px-4 py-4"
+      className="w-full max-w-7xl p-6"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <motion.h1 className="text-3xl font-bold tracking-tight mb-8" variants={itemVariants}>
-        Centrum Zarządzania Więzieniem
+        Prison Management Center
       </motion.h1>
-
+  
       {/* Prison description and layout section */}
       <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12" variants={itemVariants}>
         <div className="space-y-4">
           <motion.h2 className="text-2xl font-semibold" variants={itemVariants}>
-            O naszym więzieniu
+            About Our Prison
           </motion.h2>
           <motion.p className="text-muted-foreground" variants={itemVariants}>
-            Nasze więzienie to nowoczesny obiekt penitencjarny zaprojektowany zgodnie z najwyższymi standardami
-            bezpieczeństwa i rehabilitacji. Posiadamy 200 cel, kompleks sportowy, warsztaty szkoleniowe oraz centrum
-            medyczne. Naszym celem jest nie tylko zapewnienie bezpieczeństwa społeczeństwu, ale również skuteczna
-            resocjalizacja osadzonych.
+            Our prison is a modern correctional facility designed in accordance with the highest standards of
+            security and rehabilitation. We have 200 cells, a sports complex, vocational workshops, and a medical
+            center. Our goal is not only to ensure public safety but also effective rehabilitation of inmates.
           </motion.p>
           <motion.p className="text-muted-foreground" variants={itemVariants}>
-            Obiekt został otwarty w 2010 roku i od tego czasu przeszedł kilka modernizacji, aby sprostać zmieniającym
-            się wymogom bezpieczeństwa i standardom opieki nad osadzonymi.
+            The facility was opened in 2010 and has since undergone several upgrades to meet evolving safety
+            requirements and inmate care standards.
           </motion.p>
         </div>
         <motion.div
@@ -99,16 +100,16 @@ export default function PrisonHomepage() {
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.3 }}
         >
-          <Image src="/placeholder.svg?height=600&width=800" alt="Plan więzienia" fill className="object-cover" />
+          <Image src="/placeholder.svg?height=600&width=800" alt="Prison layout" fill className="object-cover w-full" />
           <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-            <p className="text-white font-medium text-lg">Plan więzienia</p>
+            <p className="text-white font-medium text-lg">Prison Layout</p>
           </div>
         </motion.div>
       </motion.div>
-
+  
       {/* Navigation tiles */}
       <motion.h2 className="text-2xl font-semibold mb-6" variants={itemVariants}>
-        Zarządzaj więzieniem
+        Manage the Prison
       </motion.h2>
       <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" variants={cardContainerVariants}>
         <motion.div variants={cardVariants} whileHover={{ y: -5 }}>
@@ -116,56 +117,56 @@ export default function PrisonHomepage() {
             <Card className="h-full transition-all hover:shadow-md">
               <CardHeader>
                 <Users className="h-8 w-8 mb-2 text-slate-700" />
-                <CardTitle>Więźniowie</CardTitle>
-                <CardDescription>Zarządzaj osadzonymi, ich profilami i statusem</CardDescription>
+                <CardTitle>Prisoners</CardTitle>
+                <CardDescription>Manage inmates, their profiles and status</CardDescription>
               </CardHeader>
               <CardFooter>
-                <p className="text-sm text-muted-foreground">Liczba osadzonych: 156</p>
+                <PrisonersCounter />
               </CardFooter>
             </Card>
           </Link>
         </motion.div>
-
+  
         <motion.div variants={cardVariants} whileHover={{ y: -5 }}>
           <Link href="/workers" className="block h-full">
             <Card className="h-full transition-all hover:shadow-md">
               <CardHeader>
                 <Building2 className="h-8 w-8 mb-2 text-slate-700" />
-                <CardTitle>Pracownicy</CardTitle>
-                <CardDescription>Zarządzaj personelem, harmonogramami i uprawnieniami</CardDescription>
+                <CardTitle>Staff</CardTitle>
+                <CardDescription>Manage personnel, schedules and permissions</CardDescription>
               </CardHeader>
               <CardFooter>
-                <p className="text-sm text-muted-foreground">Liczba pracowników: 78</p>
+                <WorkersCounter />
               </CardFooter>
             </Card>
           </Link>
         </motion.div>
-
+  
         <motion.div variants={cardVariants} whileHover={{ y: -5 }}>
           <Link href="/jobs" className="block h-full">
             <Card className="h-full transition-all hover:shadow-md">
               <CardHeader>
                 <Briefcase className="h-8 w-8 mb-2 text-slate-700" />
-                <CardTitle>Prace</CardTitle>
-                <CardDescription>Przydzielaj zadania i monitoruj programy resocjalizacyjne</CardDescription>
+                <CardTitle>Jobs</CardTitle>
+                <CardDescription>Assign tasks and monitor rehabilitation programs</CardDescription>
               </CardHeader>
               <CardFooter>
-                <p className="text-sm text-muted-foreground">Aktywne programy: 12</p>
+                <ActiveJobsCounter />
               </CardFooter>
             </Card>
           </Link>
         </motion.div>
-
+  
         <motion.div variants={cardVariants} whileHover={{ y: -5 }}>
           <Link href="/manage" className="block h-full">
             <Card className="h-full transition-all hover:shadow-md">
               <CardHeader>
                 <Settings className="h-8 w-8 mb-2 text-slate-700" />
-                <CardTitle>Zarządzanie</CardTitle>
-                <CardDescription>Ustawienia, raporty i administracja systemem</CardDescription>
+                <CardTitle>Administration</CardTitle>
+                <CardDescription>Settings, reports and system administration</CardDescription>
               </CardHeader>
               <CardFooter>
-                <p className="text-sm text-muted-foreground">Ostatnia aktualizacja: 2 dni temu</p>
+                <LastUpdateCounter />
               </CardFooter>
             </Card>
           </Link>
@@ -173,5 +174,5 @@ export default function PrisonHomepage() {
       </motion.div>
     </motion.div>
   )
-}
+}  
 
