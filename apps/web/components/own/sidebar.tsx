@@ -35,10 +35,12 @@ export default function AppSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
+                <a href="/">
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">Prison Managment System</span>
                   <span className="text-xs text-muted-foreground">v0.1.1</span>
                 </div>
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -77,13 +79,13 @@ export default function AppSidebar() {
           <SidebarSeparator />
         </SidebarHeader>
   
-        <SidebarContent>
+        <SidebarContent className="overflow-x-hidden" >
           <SidebarGroup>
             <SidebarGroupLabel>People</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild size="lg">
                     <a href="/prisoners">
                       <User className="size-4" />
                       <span>Prisoners</span>
@@ -91,7 +93,7 @@ export default function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild size="lg">
                     <a href="/workers">
                       <Users className="size-4" />
                       <span>Workers</span>
@@ -99,7 +101,7 @@ export default function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild size="lg">
                     <a href="/jobs">
                       <Briefcase className="size-4" />
                       <span>Jobs</span>
@@ -117,7 +119,7 @@ export default function AppSidebar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild size="lg">
                     <a href="/manage">
                       <BarChart3 className="size-4" />
                       <span>Manage Your Prison</span>
