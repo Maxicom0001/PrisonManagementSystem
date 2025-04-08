@@ -3,6 +3,7 @@
 import type * as React from "react"
 import { Users, Briefcase, BarChart3, Globe, Moon, Sun, User } from "lucide-react"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 
 import {
   Sidebar,
@@ -35,12 +36,12 @@ export default function AppSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg">
-                <a href="/">
+                <Link href="/">
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">Prison Managment System</span>
                   <span className="text-xs text-muted-foreground">v0.1.1</span>
                 </div>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -86,26 +87,26 @@ export default function AppSidebar() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild size="lg">
-                    <a href="/prisoners">
+                    <Link href="/prisoners">
                       <User className="size-4" />
                       <span>Prisoners</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild size="lg">
-                    <a href="/workers">
+                    <Link href="/workers">
                       <Users className="size-4" />
                       <span>Workers</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild size="lg">
-                    <a href="/jobs">
+                    <Link href="/jobs">
                       <Briefcase className="size-4" />
                       <span>Jobs</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -120,10 +121,10 @@ export default function AppSidebar() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild size="lg">
-                    <a href="/dashboard">
+                    <Link href="/dashboard">
                       <BarChart3 className="size-4" />
                       <span>Manage Your Prison</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
