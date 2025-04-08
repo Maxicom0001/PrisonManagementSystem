@@ -8,6 +8,7 @@ import {AnimatePresence} from "framer-motion"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import PageTransitionAnimation from "../own/pageTransition"
 
 import {
   SidebarInset,
@@ -60,11 +61,8 @@ export function MainLayout({ children }: MainLayoutProps) {
             <div className="shrink-0">
               <AppSidebar />
             </div>
-
             {/* Main content area */}
-                <div
-                  className="flex-1 flex flex-col w-full"
-                >
+                <div className="flex-1 flex flex-col w-full">
                   <SidebarInset className="flex flex-col flex-1">
                   {/* Header */}
                   <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
@@ -83,12 +81,12 @@ export function MainLayout({ children }: MainLayoutProps) {
                       <Topbar key={pathname}/>
                     </AnimatePresence>
                   </header>
-                    <main className="flex-1 flex items-center justify-center">
-                      {/* opóźnienie animacji */}
-                      {showContent && (
-                        children
-                      )}
-                    </main>
+                    <AnimatePresence mode="wait">
+                      <main className="flex-1 flex items-center justify-center">
+                        {/* opóźnienie animacji */}
+                        {showContent ? children : <PageTransitionAnimation/>}
+                      </main>
+                    </AnimatePresence>
                   </SidebarInset>
                 </div>
           </div>

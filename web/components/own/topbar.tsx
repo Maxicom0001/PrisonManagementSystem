@@ -26,7 +26,7 @@ export default function Topbar() {
                   animate={{ opacity: 0.6, x: 0 }}
                   transition={{
                     duration: 0.3,
-                    delay: index == 0 ? 0.3 : index * 0.1, // opcjonalnie opóźnienie dla każdego
+                    delay: 0.3 + (index * 0.1), // opcjonalnie opóźnienie dla każdego
                     type: "spring",
                     stiffness: 200,
                     damping: 12,
