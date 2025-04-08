@@ -93,10 +93,10 @@ export default function Dashboard() {
 
   return (
     <div className="container mx-auto max-w-7xl md:p-5 sm:p-7">
-      <div className="mb-8">
+      <motion.div className="mb-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
         <h1 className="text-3xl font-bold tracking-tight">Prison Management Dashboard</h1>
         <p className="text-muted-foreground mt-2">Overview of prison statistics, inmates, and personnel</p>
-      </div>
+      </motion.div>
 
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
