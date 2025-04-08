@@ -120,7 +120,7 @@ export default function AppSidebar() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild size="lg">
-                    <a href="/manage">
+                    <a href="/dashboard">
                       <BarChart3 className="size-4" />
                       <span>Manage Your Prison</span>
                     </a>
