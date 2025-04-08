@@ -11,7 +11,7 @@ import { PrisonersCounter, WorkersCounter, LastUpdateCounter, ActiveJobsCounter 
 
 export default function PrisonHomepage() {
 
-  const { setHeader} = useHeader()
+  const { setHeader } = useHeader()
 
   useEffect(() => {
       setHeader([{title: "Home", href: "/"}])
