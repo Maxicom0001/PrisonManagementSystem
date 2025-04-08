@@ -4,16 +4,19 @@
 import { createContext, useContext, useState } from "react"
 
 type HeaderContextType = {
-  title: string
-  setTitle: (title: string) => void
+  header: {
+    title: string,
+    href: string,
+  }[]
+  setHeader: (data: {title: string, href: string}[]) => void
 }
 
 const HeaderContext = createContext<HeaderContextType | undefined>(undefined)
 
 export function HeaderProvider({ children }: { children: React.ReactNode }) {
-  const [title, setTitle] = useState("")
+  const [header, setHeader] = useState([{title: "", href: ""}])
   return (
-    <HeaderContext.Provider value={{ title, setTitle }}>
+    <HeaderContext.Provider value={{ header, setHeader }}>
       {children}
     </HeaderContext.Provider>
   )

@@ -8,10 +8,10 @@ import { AlertCircle } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function Custom404() {
-    const { setTitle } = useHeader()
+    const { setHeader} = useHeader()
 
     useEffect(() => {
-        setTitle("404 Page Not Found")
+        setHeader([{title: "404 Page Not Found", href: "/not-found"}])
     },[])
     
 

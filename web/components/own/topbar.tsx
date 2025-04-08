@@ -8,14 +8,33 @@ import {
 
 
 export default function Topbar() {
-  const { title } = useHeader()
+  const { header } = useHeader()
 
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
       <SidebarTrigger className="-ml-1" />
         <motion.a initial={{opacity: 0, x: -20}} animate={{opacity: 1, x: 0}} transition={{duration: 0.3, delay: 0.2, type: "spring", stiffness: 200, damping: 12}} href="/" className="text-xl opacity-0">Prison Management System</motion.a> 
-        <motion.span initial={{opacity: 0, x: -20}} animate={{opacity: 0.6, x: 0}} transition={{duration: 0.3, delay: 0.45, type: "spring", stiffness: 200, damping: 12}} className="opacity-0 text-xl ">{title != "" ? " > " + title : ""}</motion.span>
+        {header.length > 0
+        ? header.map((item, index) => (
+            <motion.a
+              href={item.href}
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 0.6, x: 0 }}
+              transition={{
+                duration: 0.3,
+                delay: 0.45 + index * 0.2, // opcjonalnie opóźnienie dla każdego
+                type: "spring",
+                stiffness: 200,
+                damping: 12,
+              }}
+              className="opacity-0 text-xl"
+            >
+              {">"} {item.title}
+            </motion.a>
+          ))
+        : null}
     </header>
   )
 }

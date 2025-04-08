@@ -85,10 +85,10 @@ const itemVariants = {
 }
 
 export default function Dashboard() {
-    const { setTitle } = useHeader()
-    
+    const { setHeader} = useHeader()
+
     useEffect(() => {
-        setTitle("Dashboard")
+        setHeader([{title: "Dashboard", href: "/dashboard"}])
     },[])
 
   return (
