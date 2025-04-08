@@ -29,17 +29,17 @@ export function MainLayout({ children }: MainLayoutProps) {
     <HeaderProvider>
       <SidebarProvider>
         <QueryClientProvider client={queryClient}>
-          <div className="flex min-h-screen">
+          <div className="flex min-h-screen min-w-screen" >
           {/* Sidebar */}
-          <div className="w-64 shrink-0">
+          <div className="shrink-0">
             <AppSidebar />
           </div>
 
           {/* Main content area */}
-          <div className="flex-1 flex flex-col">
-            <SidebarInset className="flex flex-col flex-1 w-[calc(100vw-256px)]">
+          <div className="flex-1 flex flex-col w-full">
+            <SidebarInset className="flex flex-col flex-1">
               <Topbar />
-              <main className="flex-1 flex items-center justify-center w-[calc(100vw-256px)]">
+              <main className="flex-1 flex items-center justify-center">
                 {children}
               </main>
             </SidebarInset>
