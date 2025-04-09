@@ -1,7 +1,5 @@
 import mysql from 'mysql2/promise';
 
-
-
 export async function GET() {
   const pool = mysql.createPool({
     host: process.env.MYSQL_HOST || '127.0.0.1',
