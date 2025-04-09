@@ -1,33 +1,30 @@
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise";
 
 export async function GET() {
     const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || '127.0.0.1',
-        user: process.env.MYSQL_USER || 'root',
-        password: process.env.MYSQL_PASSWORD || '',
-        database: process.env.MYSQL_DATABASE || 'jail',
+        host: process.env.MYSQL_HOST || "127.0.0.1",
+        user: process.env.MYSQL_USER || "root",
+        password: process.env.MYSQL_PASSWORD || "",
+        database: process.env.MYSQL_DATABASE || "jail",
     });
 
     try {
-        const [rows] = await pool.query('SELECT * FROM sentences');
+        const [rows] = await pool.query("SELECT * FROM sentences");
 
         return new Response(JSON.stringify(rows), {
             status: 200,
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
         });
     } catch (err) {
-        console.error('Error executing query:', err);
-        return new Response(
-            JSON.stringify({ error: 'Internal server error' }),
-            {
-                status: 500,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
+        console.error("Error executing query:", err);
+        return new Response(JSON.stringify({ error: "Internal server error" }), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
     } finally {
         await pool.end();
     }
