@@ -10,7 +10,9 @@ export async function GET() {
     });
 
     try {
-        const [convict] = await pool.query("SELECT * FROM cells");
+        const [convict] = await pool.query(
+            "SELECT cells.id, cells.pojemnosc, edifices.funkcja, cell_types.nazwa FROM `cells` INNER JOIN edifices ON edifices.id = cells.id_budynku INNER JOIN cell_types ON cell_types.id = cells.id_rodzaj;",
+        );
 
         return new Response(JSON.stringify(convict), {
             status: 200,
