@@ -11,7 +11,10 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     const idToCheck = params.id;
     try {
-        const [convict] = await pool.query("SELECT * FROM cells WHERE id = ?", [idToCheck]);
+        const [convict] = await pool.query(
+            "SELECT cells.id, cells.pojemnosc, edifices.funkcja, cell_types.nazwa FROM `cells` INNER JOIN edifices ON edifices.id = cells.id_budynku INNER JOIN cell_types ON cell_types.id = cells.id_rodzaj WHERE cells.id = ?",
+            [idToCheck],
+        );
 
         return new Response(JSON.stringify(convict), {
             status: 200,
