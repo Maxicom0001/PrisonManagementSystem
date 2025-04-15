@@ -9,9 +9,9 @@ export async function GET() {
     });
 
     try {
-        const [convict] = await pool.query("SELECT * FROM workers");
+        const [rows] = await pool.query("SELECT * FROM edifices");
 
-        return new Response(JSON.stringify(convict), {
+        return new Response(JSON.stringify(rows), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
