@@ -4,7 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { ScrollingLoader } from "@/components/own/scrolling-loader";
 import { motion } from "framer-motion";
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const fetchData = async () => {
+    await delay(2000); // Simulate network delay
     const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
     if (!response.ok) {
         throw new Error("Network response was not ok");
