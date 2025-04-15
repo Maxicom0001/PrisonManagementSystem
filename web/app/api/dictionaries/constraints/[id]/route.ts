@@ -11,7 +11,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     const idToCheck = params.id;
     try {
-        const [convict] = await pool.query("SELECT * FROM convicts WHERE id = ?", [idToCheck]);
+        const [convict] = await pool.query("SELECT * FROM constraints WHERE id = ?", [idToCheck]);
 
         return new Response(JSON.stringify(convict), {
             status: 200,
@@ -41,7 +41,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
     const idToDelete = params.id;
     try {
-        const [convict] = await pool.query("DELETE FROM convicts WHERE id = ?", [idToDelete]);
+        const [convict] = await pool.query("DELETE FROM constraints WHERE id = ?", [idToDelete]);
 
         return new Response(JSON.stringify(convict), {
             status: 200,

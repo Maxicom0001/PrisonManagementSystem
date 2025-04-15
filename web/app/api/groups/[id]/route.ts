@@ -1,5 +1,5 @@
-import mysql from "mysql2/promise";
 import { NextRequest } from "next/server";
+import mysql from "mysql2/promise";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     const pool = mysql.createPool({
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     const idToCheck = params.id;
     try {
-        const [convict] = await pool.query("SELECT * FROM convicts WHERE id = ?", [idToCheck]);
+        const [convict] = await pool.query("SELECT * FROM `groups` WHERE id = ?", [idToCheck]);
 
         return new Response(JSON.stringify(convict), {
             status: 200,
@@ -41,9 +41,20 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
     const idToDelete = params.id;
     try {
-        const [convict] = await pool.query("DELETE FROM convicts WHERE id = ?", [idToDelete]);
+        const [sentences] = await pool.query("SELECT * FROM sentences WHERE id_grupy  = ?", [idToDelete]);
 
-        return new Response(JSON.stringify(convict), {
+        if ((sentences as []).length > 0) {
+            return new Response(JSON.stringify({ error: "Cannot delete group: sentences are assigned to it." }), {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+        }
+
+        const [result] = await pool.query("DELETE FROM `groups` WHERE id = ?", [idToDelete]);
+
+        return new Response(JSON.stringify(result), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
