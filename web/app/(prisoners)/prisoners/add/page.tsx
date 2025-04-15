@@ -56,7 +56,7 @@ export default function PrisonerForm() {
         const { setHeader } = useHeader();
     
         useEffect(() => {
-            setHeader([{ title: "Prisoners", href: "/prisoners" }, { title: "Add", href: "/prisoners/add" }]);
+            setHeader([{ title: "Add Prisoner", href: "/prisoners/add" }]);
         }, []);
 
     

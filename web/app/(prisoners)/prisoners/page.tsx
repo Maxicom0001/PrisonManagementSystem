@@ -14,6 +14,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Skeleton } from "@/components/ui/skeleton"
+import Link from "next/link"
+import { useHeader } from "@/components/providers/header-title-provider"
 
 // Typy danych
 interface Prisoner {
@@ -233,6 +235,11 @@ export default function PrisonerDatabase() {
   const [expandedId, setExpandedId] = useState<number | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [loading, setLoading] = useState(true)
+  const {setHeader} = useHeader()
+
+  useEffect(() => {
+    setHeader([{ title: "Prisoners", href: "/prisoners" }])
+  }, [])
 
   // Symulacja ładowania danych
   useEffect(() => {
@@ -348,9 +355,11 @@ export default function PrisonerDatabase() {
             disabled={loading}
           />
         </div>
-        <Button onClick={handleAddPrisoner} disabled={loading}>
-          <UserPlus className="h-4 w-4 mr-2" />
-          Dodaj więźnia
+        <Button onClick={handleAddPrisoner} disabled={loading} asChild>
+          <Link href="/prisoners/add">
+            <UserPlus className="h-4 w-4 mr-2" />
+            Dodaj więźnia
+          </Link>
         </Button>
       </div>
 
