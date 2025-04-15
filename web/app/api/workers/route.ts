@@ -1,7 +1,6 @@
 import mysql from "mysql2/promise";
-import { NextRequest } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET() {
     const pool = mysql.createPool({
         host: process.env.MYSQL_HOST || "127.0.0.1",
         user: process.env.MYSQL_USER || "root",
@@ -9,7 +8,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         database: process.env.MYSQL_DATABASE || "jail",
     });
 
-    const idToCheck = params.id;
     try {
         const [convict] = await pool.query("SELECT * FROM workers");
 
