@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import PageTransitionAnimation from "../own/pageTransition";
+import { Toaster } from "sonner"
 
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
@@ -69,12 +70,12 @@ export function MainLayout({ children }: MainLayoutProps) {
                                         <Topbar key={pathname} />
                                     </AnimatePresence>
                                 </header>
-                                <AnimatePresence mode="wait">
-                                    <main className="flex-1 flex items-center justify-center">
+                                <main className="flex-1 flex items-center justify-center">
                                         {/* opóźnienie animacji */}
-                                        {showContent ? children : <PageTransitionAnimation />}
-                                    </main>
-                                </AnimatePresence>
+                                        {children}
+                                        <Toaster richColors position="bottom-right" />
+                                        {/*showContent ? children : <PageTransitionAnimation />*/}
+                                </main>
                             </SidebarInset>
                         </div>
                     </div>
