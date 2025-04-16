@@ -1,4 +1,5 @@
 import mysql from "mysql2/promise";
+import { NextRequest } from "next/server";
 
 export async function GET() {
     const pool = mysql.createPool({
@@ -34,8 +35,7 @@ export async function GET() {
     }
 }
 
-
-/**export async function POST(request: Request){
+export async function POST(req: NextRequest) {
     const pool = mysql.createPool({
         host: process.env.MYSQL_HOST || "127.0.0.1",
         user: process.env.MYSQL_USER || "root",
@@ -43,42 +43,38 @@ export async function GET() {
         database: process.env.MYSQL_DATABASE || "jail",
     });
 
+
     try {
-        const body = await request.json();
-        const { status } = body as { status?: string }; // type-safe access
+        
+    const searchParams = req.nextUrl.searchParams
+    const id = searchParams.get('id')
+    const nazwa = searchParams.get('nazwa')
 
-        if (!status) {
-            return new Response(JSON.stringify({ error: "Missing 'status' field" }), {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-        }
 
-        const [insertId] = await pool.query(
-            "INSERT INTO `statuses` (`status`) VALUES (?);",
-            [status]
-        );
+    const query = `INSERT INTO 'statuses'('id', 'nazwa') VALUES ('${id}','${nazwa}')`
 
-        return new Response(JSON.stringify({
-            message: "Status inserted successfully",
-            insertId: insertId,
-        }), {
-            status: 201,
+    const [result] = await pool.execute(query)
+
+    return new Response(
+        JSON.stringify({ success: true, insertedId: (result as any).insertId }),
+        {
+            status: 200,
             headers: {
                 "Content-Type": "application/json",
             },
-        });
+        }
+    );
+       
     } catch (err) {
-        console.error("Error inserting data:", err);
+        console.error("Error executing query:", err);
         return new Response(JSON.stringify({ error: "Internal server error" }), {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
             },
         });
-    } finally{
-        await pool.end()
+    } finally {
+        await pool.end();
     }
-}**/
+
+}
