@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Users, ArrowRight, Calendar, AlertCircle } from "lucide-react";
-import fetchData from "@/components/own/fetch-data";
+import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 
 const itemVariants = {
