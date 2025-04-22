@@ -1,5 +1,6 @@
 import mysql from "mysql2/promise";
 import { NextRequest } from "next/server";
+import connectDB from "@/components/api/connectDB";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     const pool = mysql.createPool({
@@ -33,12 +34,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+    const pool = connectDB();
 
     const idToDelete = params.id;
     try {
@@ -64,12 +60,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 }
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+    const pool = connectDB();
 
     const idToUpdate = params.id;
     const body = await request.json();

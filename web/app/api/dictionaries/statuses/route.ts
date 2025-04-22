@@ -1,19 +1,15 @@
 import mysql from "mysql2/promise";
 import { NextRequest } from "next/server";
+import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+    const pool = connectDB();
 
     try {
         const [statuses] = await pool.query("SELECT * FROM `statuses`;");
 
         const response = {
-            statuses: statuses
+            statuses: statuses,
         };
 
         return new Response(JSON.stringify(response), {
@@ -36,35 +32,23 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
-
+    const pool = connectDB();
 
     try {
-        
-    const searchParams = req.nextUrl.searchParams
-    const id = searchParams.get('id')
-    const nazwa = searchParams.get('nazwa')
+        const searchParams = req.nextUrl.searchParams;
+        const id = searchParams.get("id");
+        const nazwa = searchParams.get("nazwa");
 
+        const query = `INSERT INTO 'statuses'('id', 'nazwa') VALUES ('${id}','${nazwa}')`;
 
-    const query = `INSERT INTO 'statuses'('id', 'nazwa') VALUES ('${id}','${nazwa}')`
+        const [result] = await pool.execute(query);
 
-    const [result] = await pool.execute(query)
-
-    return new Response(
-        JSON.stringify({ success: true, insertedId: (result as any).insertId }),
-        {
+        return new Response(JSON.stringify({ success: true, insertedId: (result as any).insertId }), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
             },
-        }
-    );
-       
+        });
     } catch (err) {
         console.error("Error executing query:", err);
         return new Response(JSON.stringify({ error: "Internal server error" }), {
@@ -76,5 +60,4 @@ export async function POST(req: NextRequest) {
     } finally {
         await pool.end();
     }
-
 }
