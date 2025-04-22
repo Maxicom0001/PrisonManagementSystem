@@ -7,7 +7,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/comp
 import { motion } from "framer-motion";
 import { useHeader } from "@/components/providers/header-title-provider";
 import { useEffect } from "react";
-import { PrisonersCounter, WorkersCounter, LastUpdateCounter, ActiveJobsCounter } from "../components/own/statistics";
+import { PrisonersCounter, WorkersCounter, ActiveJobsCounter } from "../components/own/statistics";
 
 export default function PrisonHomepage() {
     const { setHeader } = useHeader();
@@ -103,7 +103,7 @@ export default function PrisonHomepage() {
             <motion.h2 className="text-2xl font-semibold mb-6" variants={itemVariants}>
                 Manage the Prison
             </motion.h2>
-            <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" variants={cardContainerVariants}>
+            <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" variants={cardContainerVariants}>
                 <motion.div variants={cardVariants} whileHover={{ y: -5 }}>
                     <Link href="/prisoners" className="block h-full">
                         <Card className="h-full transition-all hover:shadow-md">
@@ -144,21 +144,6 @@ export default function PrisonHomepage() {
                             </CardHeader>
                             <CardFooter>
                                 <ActiveJobsCounter />
-                            </CardFooter>
-                        </Card>
-                    </Link>
-                </motion.div>
-
-                <motion.div variants={cardVariants} whileHover={{ y: -5 }}>
-                    <Link href="/manage" className="block h-full">
-                        <Card className="h-full transition-all hover:shadow-md">
-                            <CardHeader>
-                                <Settings className="h-8 w-8 mb-2 text-slate-700" />
-                                <CardTitle>Administration</CardTitle>
-                                <CardDescription>Settings, reports and system administration</CardDescription>
-                            </CardHeader>
-                            <CardFooter>
-                                <LastUpdateCounter />
                             </CardFooter>
                         </Card>
                     </Link>
