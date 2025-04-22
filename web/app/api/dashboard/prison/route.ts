@@ -14,7 +14,7 @@ export async function GET() {
     }
 
     try {
-        const avalibleCells = await queryOne<avalibleCells>("SELECT SUM(cells.pojemnosc) - COUNT(convicts.id) AS unoccupied_spaces FROM `cells`, `convicts`;");
+        const avalibleCells = await queryOne<avalibleCells>("SELECT (SELECT SUM(cells.pojemnosc) FROM cells) - COUNT(convicts.id) as unoccupied_spaces FROM convicts WHERE convicts.data_wyjscia IS NULL");
         const totalSpace = await queryOne<totalSpace>("SELECT SUM(cells.pojemnosc) AS total_space FROM `cells`;");
         const buildings = await queryOne<buildings>("SELECT COUNT(id) AS buildings FROM `edifices`");
         const cellBlocks = await queryOne<cellBlocks>("SELECT COUNT(id) as cellBlocks FROM `cells`");
