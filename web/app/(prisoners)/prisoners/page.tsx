@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ChevronDown, ChevronUp, Search, Edit, Trash2, Clock, Plus, ArrowUpDown, UserPlus } from "lucide-react"
 import { format, differenceInDays, parseISO } from "date-fns"
-import { pl } from "date-fns/locale"
+import { enGB, pl } from "date-fns/locale"
 import { Progress } from "@/components/ui/progress"
 import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link"
@@ -98,7 +98,7 @@ export default function PrisonerDatabase() {
   // Funkcja do formatowania daty
   const formatDate = (dateString: string) => {
     try {
-      return format(new Date(dateString), "dd MMMM yyyy", { locale: pl })
+      return format(new Date(dateString), "dd MMMM yyyy", { locale: enGB })
     } catch (error) {
       return dateString
     }
