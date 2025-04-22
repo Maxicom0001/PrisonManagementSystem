@@ -110,7 +110,7 @@ export default function Notes({ prisoner }: { prisoner: {id: number}  }) {
                 {data.map((note: Note) => (
                   <li key={note.id} className="text-sm border-b pb-2 last:border-0">
                     <div className="flex items-start justify-between group">
-                      <span className="flex-1">{new Date(note.created_at).getFullYear()}.
+                      <span className="flex-1 whitespace-normal w-60">{new Date(note.created_at).getFullYear()}.
                                                       {new Date(note.created_at).getMonth() < 10 ? "0" + new Date(note.created_at).getMonth() : new Date(note.created_at).getMonth()}.
                                                       {new Date(note.created_at).getDay() < 10 ? "0" + new Date(note.created_at).getDay(): new Date(note.created_at).getDay()}{" - "}
                                                       {note.content}</span>
