@@ -57,7 +57,7 @@ export default function SentencesTile() {
                             <span className="text-xl font-bold">{Math.floor(data.sentences.longest.time / 365.25)} years</span>
                             <span className="text-sm text-muted-foreground mt-1">{data.sentences.longest.reason.slice(0, 50)}...</span>
                             <Button variant="outline" size="sm" className="mt-2">
-                                {data.sentences.longest.id}
+                                P-{data.sentences.longest.id}
                             </Button>
                         </motion.div>
                         <motion.div
@@ -70,7 +70,7 @@ export default function SentencesTile() {
                             <span className="text-xl font-bold">{Math.floor(data.sentences.shortest.time / 365.25)} years</span>
                             <span className="text-sm text-muted-foreground mt-1">{data.sentences.shortest.reason.slice(0, 50)}...</span>
                             <Button variant="outline" size="sm" className="mt-2">
-                                {data.sentences.shortest.id}
+                                P-{data.sentences.shortest.id}
                             </Button>
                         </motion.div>
                         <motion.div
@@ -83,7 +83,7 @@ export default function SentencesTile() {
                             <span className="text-xl font-bold">{Math.floor(data.sentences.newest.time / 365.25)} years</span>
                             <span className="text-sm text-muted-foreground mt-1">{data.sentences.newest.reason.slice(0,50)}</span>
                             <Button variant="outline" size="sm" className="mt-2">
-                                {data.sentences.newest.id}
+                                P-{data.sentences.newest.id}
                             </Button>
                         </motion.div>
                     </div>
