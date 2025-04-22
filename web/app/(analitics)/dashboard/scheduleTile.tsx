@@ -22,16 +22,15 @@ const itemVariants = {
 };
 
 const badgeVariant = (time: string) => {
-    const currentTime = new Date().getUTCHours();
+    const currentTime = new Date().getHours();
 
-    const scheduleTime = new Date(`1970-01-01T${time}Z`).getUTCHours(); // Convert to UTC hours
+    const scheduleTime = new Date(`1970-01-01T${time}Z`).getHours() - 1; // Convert to UTC hours
+    console.log("Current time:", currentTime, "Schedule time:", scheduleTime);
 
-    console.log(scheduleTime)
-
-    if (scheduleTime > currentTime) {
-        return "Upcoming";
-    }else if (scheduleTime < currentTime && scheduleTime > currentTime - 1) {
+    if (scheduleTime == currentTime) {
         return "In progress";
+    }else if (scheduleTime > currentTime) {
+        return "Upcoming";
     }
     return "Completed";
 }
