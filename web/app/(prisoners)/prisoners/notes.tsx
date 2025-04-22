@@ -83,7 +83,7 @@ export default function Notes({ prisoner }: { prisoner: {id: number}  }) {
         <Card>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium">Notatki</CardTitle>
+              <CardTitle className="text-sm font-medium">Notes</CardTitle>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -94,11 +94,11 @@ export default function Notes({ prisoner }: { prisoner: {id: number}  }) {
                       onClick={() => handleAddNote(prisoner.id)}
                     >
                       <Plus className="h-4 w-4" />
-                      <span className="sr-only">Dodaj notatkę</span>
+                      <span className="sr-only">Add Note</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Dodaj nową notatkę</p>
+                    <p>Add new note</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -125,11 +125,11 @@ export default function Notes({ prisoner }: { prisoner: {id: number}  }) {
                                 onClick={() => handleEditNote(prisoner.id, note.id)}
                               >
                                 <Edit className="h-3 w-3" />
-                                <span className="sr-only">Edytuj notatkę</span>
+                                <span className="sr-only">Edit Note</span>
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Edytuj notatkę</p>
+                              <p>Edit Note</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -143,11 +143,11 @@ export default function Notes({ prisoner }: { prisoner: {id: number}  }) {
                                 onClick={() => handleDeleteNote(prisoner.id, note.id)}
                               >
                                 <Trash2 className="h-3 w-3" />
-                                <span className="sr-only">Usuń notatkę</span>
+                                <span className="sr-only">Delete Note</span>
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Usuń notatkę</p>
+                              <p>Delete Note</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>

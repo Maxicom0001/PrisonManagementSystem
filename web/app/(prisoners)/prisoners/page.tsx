@@ -132,12 +132,12 @@ export default function PrisonerDatabase() {
 
   return (
     <div className="flex flex-col max-w-7xl w-full h-full p-6 space-y-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">System Zarządzania Więźniami</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Prisoners Managment System</h1>
       <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Wyszukaj więźnia..."
+            placeholder="Search for prisoner..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -147,7 +147,7 @@ export default function PrisonerDatabase() {
         <Button onClick={handleAddPrisoner} disabled={isLoading} asChild>
           <Link href="/prisoners/add">
             <UserPlus className="h-4 w-4 mr-2" />
-            Dodaj więźnia
+            Add prisoner
           </Link>
         </Button>
       </div>
@@ -175,25 +175,25 @@ export default function PrisonerDatabase() {
                   </TableHead>
                   <TableHead className="cursor-pointer">
                     <div className="flex items-center">
-                      Imię
+                      Name
                       <ArrowUpDown className="ml-1 h-4 w-4"  onClick={() => handleOrderChange("imie")}/>
                     </div>
                   </TableHead>
                   <TableHead className="cursor-pointer">
                     <div className="flex items-center">
-                      Nazwisko
+                      Last Name
                       <ArrowUpDown className="ml-1 h-4 w-4" onClick={() => handleOrderChange("nazwisko")}/>
                     </div>
                   </TableHead>
                   <TableHead className="cursor-pointer">
                     <div className="flex items-center">
-                      Data osadzenia
+                      Date of incarceration
                       <ArrowUpDown className="ml-1 h-4 w-4" onClick={() => handleOrderChange("data_osadzenia")}/>
                     </div>
                   </TableHead>
                   <TableHead className="cursor-pointer">
                     <div className="flex items-center">
-                      Cela
+                      Cell
                       <ArrowUpDown className="ml-1 h-4 w-4" onClick={() => handleOrderChange("id_celi")}/>
                     </div>
                   </TableHead>
@@ -242,11 +242,11 @@ export default function PrisonerDatabase() {
                                   <div className="space-y-4 md:col-span-2">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                       <div>
-                                        <p className="text-sm font-medium">Drugie imię:</p>
+                                        <p className="text-sm font-medium">Second name:</p>
                                         <p>{prisoner.drugieImie || "-"}</p>
                                       </div>
                                       <div>
-                                        <p className="text-sm font-medium">Nazwisko panieńskie matki:</p>
+                                        <p className="text-sm font-medium">Mother's maiden name:</p>
                                         <p>{prisoner.nazwisko_panienskie_matki || "-"}</p>
                                       </div>
                                       <div>
@@ -254,7 +254,7 @@ export default function PrisonerDatabase() {
                                         <p>{prisoner.pesel}</p>
                                       </div>
                                       <div>
-                                        <p className="text-sm font-medium">Miejsce urodzenia:</p>
+                                        <p className="text-sm font-medium">Place of birth:</p>
                                         <p>{prisoner.miejsce_urodzenia}</p>
                                       </div>
                                     </div>
@@ -263,11 +263,11 @@ export default function PrisonerDatabase() {
                                     <div className="space-y-2 mt-4">
                                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                          <p className="text-sm font-medium">Wyrok:</p>
+                                          <p className="text-sm font-medium">Sentence:</p>
                                           <p>{Math.floor(prisoner.wyrok / 365.25)} lat</p>
                                         </div>
                                         <div>
-                                          <p className="text-sm font-medium">Powód wyroku:</p>
+                                          <p className="text-sm font-medium">Sentence Details:</p>
                                           <p>{prisoner.powod_wyroku}</p>
                                         </div>
                                       </div>
@@ -275,7 +275,7 @@ export default function PrisonerDatabase() {
                                       {/* Pozostały czas odsiadki */}
                                       <div className="mt-4">
                                         <div className="flex items-center justify-between mb-1">
-                                          <p className="text-sm font-medium">Pozostały czas odsiadki:</p>
+                                          <p className="text-sm font-medium">Remaining serve time:</p>
                                           <div className="flex items-center">
                                             <Clock className="h-4 w-4 mr-1" />
                                             <span className="text-sm">
@@ -283,7 +283,7 @@ export default function PrisonerDatabase() {
                                                 prisoner.data_osadzenia,
                                                 prisoner.wyrok,
                                               )}{" "}
-                                              dni
+                                              days
                                             </span>
                                           </div>
                                         </div>
@@ -299,8 +299,8 @@ export default function PrisonerDatabase() {
                                           className="h-2"
                                         />
                                         <p className="text-xs text-muted-foreground mt-1">
-                                          Odbyte: {differenceInDays(new Date(), new Date(prisoner.data_osadzenia))} dni z{" "}
-                                          {prisoner.wyrok} dni
+                                          Served: {differenceInDays(new Date(), new Date(prisoner.data_osadzenia))} days of{" "}
+                                          {prisoner.wyrok} days
                                         </p>
                                       </div>
                                     </div>
@@ -309,11 +309,11 @@ export default function PrisonerDatabase() {
                                     <div className="flex justify-end space-x-2 mt-4">
                                       <Button variant="outline" size="sm" onClick={() => handleEdit(prisoner.id)}>
                                         <Edit className="h-4 w-4 mr-2" />
-                                        Edytuj
+                                        Update
                                       </Button>
                                       <Button variant="destructive" size="sm" onClick={() => handleDelete(prisoner.id)}>
                                         <Trash2 className="h-4 w-4 mr-2" />
-                                        Usuń
+                                        Delete
                                       </Button>
                                     </div>
                                   </div>
@@ -332,7 +332,7 @@ export default function PrisonerDatabase() {
                 {filteredPrisoners?.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={6} className="text-center py-8">
-                      Nie znaleziono więźniów spełniających kryteria wyszukiwania
+                      No prisoners matching your search criteria were found.
                     </TableCell>
                   </TableRow>
                 )}
