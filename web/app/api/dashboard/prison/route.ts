@@ -1,12 +1,7 @@
-import mysql from "mysql2/promise";
+import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+    const pool = connectDB()
 
     try {
         const [avalibleCells] = await pool.query("SELECT SUM(cells.pojemnosc) - COUNT(convicts.id) AS unoccupied_spaces FROM `cells`, `convicts`;");
@@ -39,3 +34,4 @@ export async function GET() {
         await pool.end();
     }
 }
+    

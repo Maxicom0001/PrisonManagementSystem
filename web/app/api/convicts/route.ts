@@ -1,13 +1,9 @@
 import mysql from "mysql2/promise";
 import { NextRequest } from "next/server";
+import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+    const pool = connectDB()
 
     try {
         const [rows] = await pool.query("SELECT * FROM convicts");
@@ -32,13 +28,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
-
+    const pool = connectDB()
 
     try {
         
