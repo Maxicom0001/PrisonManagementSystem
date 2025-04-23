@@ -21,50 +21,6 @@ interface Employee {
   zadanie: string
 }
 
-// Mock data
-const mockEmployees: Employee[] = [
-  {
-    id: 1,
-    firstName: "John",
-    lastName: "Smith",
-    pesel: "80010112345",
-    salary: 4500,
-    task: "Developing the new customer portal interface with React and implementing responsive design for mobile devices.",
-  },
-  {
-    id: 2,
-    firstName: "Anna",
-    lastName: "Johnson",
-    pesel: "85020223456",
-    salary: 5200,
-    task: "Conducting quarterly financial audit and preparing reports for the board meeting scheduled next week.",
-  },
-  {
-    id: 3,
-    firstName: "Michael",
-    lastName: "Williams",
-    pesel: "75030334567",
-    salary: 6100,
-    task: "Leading the marketing campaign for our new product launch, coordinating with external agencies and social media team.",
-  },
-  {
-    id: 4,
-    firstName: "Emily",
-    lastName: "Brown",
-    pesel: "90040445678",
-    salary: 4800,
-    task: "Analyzing customer feedback data and preparing recommendations for product improvements in the next release.",
-  },
-  {
-    id: 5,
-    firstName: "David",
-    lastName: "Jones",
-    pesel: "82050556789",
-    salary: 5500,
-    task: "Conducting training sessions for new employees on company policies, procedures and software tools.",
-  },
-]
-
 // Loading placeholder for employee cards
 const EmployeeCardLoadingPlaceholder = () => {
     
