@@ -191,7 +191,7 @@ export default function EmployeeDatabase() {
             {isLoading ? (<EmployeeCardLoadingPlaceholder/>) : (
                 <div>
                 {filteredEmployees.map((employee: Employee) => (
-                    <Card key={employee.id} className="w-full">
+                    <Card key={employee.id} className="w-full mb-3">
                         <CardContent className="p-6">
                         <div className="flex md:flex-col-3 flex-col md:flex-row md:items-center">
                             {/* Left section - Photo and basic info */}
