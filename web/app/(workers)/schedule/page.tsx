@@ -7,16 +7,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { EditScheduleForm } from "./edit-schedule-form";
+import { useQuery } from "@tanstack/react-query";
+import fetchData from "@/components/api/fetch-data";
 
-// Define the ScheduleItem type explicitly
 type ScheduleItem = {
     id: number;
     time: string;
     activity: string;
-    status: "Completed" | "Upcoming"; // Explicitly define as union type
+    status: "Completed" | "Upcoming";
 };
 
-// Initial schedule data with explicit typing
 const initialSchedule: ScheduleItem[] = [
     {
         id: 1,
@@ -69,7 +69,6 @@ const initialSchedule: ScheduleItem[] = [
 ];
 
 export default function Home() {
-    const [schedule, setSchedule] = useState<ScheduleItem[]>(initialSchedule);
     const [selectedItem, setSelectedItem] = useState<ScheduleItem | null>(null);
     const [open, setOpen] = useState(false);
 
@@ -88,9 +87,20 @@ export default function Home() {
             status: validStatus,
         };
 
-        setSchedule(schedule.map((item) => (item.id === typedItem.id ? typedItem : item)));
         setOpen(false);
     };
+
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ["dashboard/prisoners"],
+        queryFn: () => fetchData("api/schedule"),
+        refetchOnWindowFocus: false,
+        retry: false,
+    });
+
+    console.log(data);
+
+    if (isLoading) return <h1>Loading...</h1>;
+    if (isError) return <div>Error: {error.message}</div>;
 
     return (
         <main className="container mx-auto py-10">
@@ -107,7 +117,7 @@ export default function Home() {
                             <div className="col-span-3">Status</div>
                             <div className="col-span-1">Akcje</div>
                         </div>
-                        {schedule.map((item) => (
+                        {data.map((item: ScheduleItem) => (
                             <div key={item.id} className="grid grid-cols-12 border-b p-4 last:border-0">
                                 <div className="col-span-2 font-medium">{item.time}</div>
                                 <div className="col-span-6">{item.activity}</div>
