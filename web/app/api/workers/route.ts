@@ -6,7 +6,7 @@ export async function GET() {
     const pool = connectDB();
 
     try {
-        const [convict] = await pool.query("SELECT * FROM workers");
+        const [convict] = await pool.query("SELECT workers.id, workers.imie, workers.nazwisko, workers.pesel, workers.pensja, jobs.nazwa as zadanie FROM workers JOIN jobs ON workers.id_zadania = jobs.id");
 
         return new Response(JSON.stringify(convict), {
             status: 200,
