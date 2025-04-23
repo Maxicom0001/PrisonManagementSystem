@@ -107,8 +107,8 @@ export default function PrisonTile() {
                     </div>
                 </CardContent>
                 <CardFooter className="bg-green-500/5 py-2 mt-auto px-4">
-                    <Button variant="ghost" size="sm" className="ml-auto text-green-600">
-                        View Facilities <ArrowRight className="ml-1 h-4 w-4" />
+                    <Button variant="ghost" disabled size="sm" className="ml-auto text-green-600">
+                        
                     </Button>
                 </CardFooter>
             </Card>

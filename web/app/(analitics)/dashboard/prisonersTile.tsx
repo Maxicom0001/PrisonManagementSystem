@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Users, ArrowRight, Calendar, AlertCircle } from "lucide-react";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -141,7 +142,7 @@ export default function PrisonersTile() {
                         ).toLocaleDateString()}
                         </span>
                     </div>
-                    <Button variant="outline" size="sm" className="mt-2">
+                    <Button variant="outline" size="sm" className="mt-2 ">
                         P-{data.prisoners.nextRelease.id}
                     </Button>
                     </div>
@@ -149,9 +150,11 @@ export default function PrisonersTile() {
                 </CardContent>
 
                 <CardFooter className="bg-red-500/5 py-2 mt-auto w-full px-4">
-                <Button variant="ghost" size="sm" className="ml-auto text-red-600">
-                    View All Prisoners <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
+                <Link href="/prisoners" className="ml-auto">
+                    <Button variant="ghost" size="sm" className="ml-auto text-red-600">
+                        View All Prisoners <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
+                </Link>
                 </CardFooter>
             </Card>
             </motion.div>

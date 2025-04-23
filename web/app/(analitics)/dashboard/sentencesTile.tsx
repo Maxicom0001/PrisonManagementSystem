@@ -7,6 +7,7 @@ import { useHeader } from "@/components/providers/header-title-provider";
 import { useEffect } from "react";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -114,9 +115,11 @@ export default function SentencesTile() {
                     </div>
                 </CardContent>
                 <CardFooter className="bg-amber-500/5 py-2 mt-auto w-full px-4">
-                    <Button variant="ghost" size="sm" className="ml-auto text-amber-600">
-                        View All Sentences <ArrowRight className="ml-1 h-4 w-4" />
-                    </Button>
+                    <Link href="/sentences" className="ml-auto">
+                        <Button variant="ghost" size="sm" className="ml-auto text-amber-600">
+                            View All Sentences <ArrowRight className="ml-1 h-4 w-4" />
+                        </Button>
+                    </Link>
                 </CardFooter>
             </Card>
         </motion.div>
