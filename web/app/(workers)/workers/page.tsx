@@ -17,7 +17,7 @@ interface Employee {
   imie: string
   nazwisko: string
   pesel: string
-  salary: number
+  pensja: number
   zadanie: string
 }
 
@@ -158,14 +158,6 @@ export default function EmployeeDatabase() {
     // Add your logic for adding a task
   }
 
-  // Format currency
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(amount)
-  }
     if (isError) return <div>Error: {error.message}</div>;
 
   return (
@@ -213,7 +205,7 @@ export default function EmployeeDatabase() {
                                     </h3>
                                     <div className="text-sm text-muted-foreground">
                                     <p>PESEL: {employee.pesel}</p>
-                                    <p>Salary: {formatCurrency(employee.salary)}</p>
+                                    <p>Salary: {employee.pensja}$</p>
                                     </div>
                                 </div>
                             </div>
