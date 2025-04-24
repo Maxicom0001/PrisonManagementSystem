@@ -99,7 +99,7 @@ export default function Home() {
           className="container mx-auto py-10"
         >
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
-            <Card className="w-full max-w-4xl mx-auto">
+            <Card className="w-full max-w-4xl mx-auto bg-neutral border-0 shadow-none">
               <CardHeader>
                 <CardTitle className="text-2xl">Prison Schedule</CardTitle>
                 <CardDescription>
@@ -120,7 +120,7 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
+                <div className="rounded-md border bg-[var(--color-card)] shadow-lg">
                   <div className="grid grid-cols-12 border-b bg-muted/50 p-4 font-medium">
                     <div className="col-span-2">Time</div>
                     <div className="col-span-6">Activity</div>
