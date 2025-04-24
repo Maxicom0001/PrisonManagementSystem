@@ -1,7 +1,7 @@
 "use client";
 
 import type * as React from "react";
-import { Users, Briefcase, BarChart3, Globe, Moon, Sun, User } from "lucide-react";
+import { Users, Briefcase, BarChart3, Globe, Moon, Sun, User, Gavel, Clock } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
@@ -101,11 +101,37 @@ export default function AppSidebar() {
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+                
+                <SidebarSeparator />
+                    
+                <SidebarGroup>
+                    <SidebarGroupLabel>Prison</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild size="lg">
                                     <Link href="/jobs">
                                         <Briefcase className="size-4" />
                                         <span>Jobs</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild size="lg">
+                                    <Link href="/schedule">
+                                        <Clock className="size-4" />
+                                        <span>Schedule</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild size="lg">
+                                    <Link href="/sentences">
+                                        <Gavel className="size-4" />
+                                        <span>Sentences</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
