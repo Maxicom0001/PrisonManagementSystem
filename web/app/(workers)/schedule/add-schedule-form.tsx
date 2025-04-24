@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useForm } from "react-hook-form";
 
 type ScheduleItem = {
-    id: number;
     title: string;
     time: string;
 };
@@ -17,17 +16,15 @@ interface EditScheduleFormProps {
     onSave: (updatedItem: ScheduleItem) => void;
 }
 
-export function EditScheduleForm({ item, onSave }: EditScheduleFormProps) {
+export function AddScheduleForm() {
     // Check if item exists, if not use a default empty item
-    const defaultItem: ScheduleItem = item || {
-        id: 0,
+    const defaultItem: ScheduleItem ={
         time: "",
         title: "",
     };
 
     const form = useForm<ScheduleItem>({
         defaultValues: {
-            id: defaultItem.id,
             time: defaultItem.time,
             title: defaultItem.title,
         },
@@ -41,6 +38,12 @@ export function EditScheduleForm({ item, onSave }: EditScheduleFormProps) {
 
         onSave(updatedItem);
     };
+
+    const onSave = (updatedItem: ScheduleItem) => {
+        // Handle the save logic here, e.g., send to API or update state
+        console.log("Saved item:", updatedItem);
+    }
+
 
     return (
         <Form {...form}>
@@ -73,7 +76,7 @@ export function EditScheduleForm({ item, onSave }: EditScheduleFormProps) {
                     )}
                 />
                 <div className="flex justify-end">
-                    <Button type="submit">Save changes</Button>
+                    <Button type="submit">Add</Button>
                 </div>
             </form>
         </Form>
