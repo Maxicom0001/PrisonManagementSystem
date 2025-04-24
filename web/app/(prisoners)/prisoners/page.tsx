@@ -165,7 +165,7 @@ export default function PrisonerDatabase() {
             className="rounded-md border bg-background shadow flex-grow overflow-auto"
           >
             <Table>
-              <TableHeader>
+              <TableHeader className="bg-[var(--color-muted)]/50">
                 <TableRow>
                   <TableHead className="w-[80px] cursor-pointer">
                     <div className="flex items-center">
