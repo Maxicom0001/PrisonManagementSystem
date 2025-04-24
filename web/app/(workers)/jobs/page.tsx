@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { PrisonJobsSkeleton } from "./prison-jobs-skeleton";
+import { useHeader } from "@/components/providers/header-title-provider";
 
 // Wrap shadcn components with motion
 const MotionCard = motion(Card);
@@ -15,6 +16,12 @@ const MotionDiv = motion.div;
 
 export default function PrisonJobs() {
     const [isLoading, setIsLoading] = useState(true);
+
+    const { setHeader } = useHeader();
+
+    useEffect(() => {
+        setHeader([{ title: "Prison Jobs", href: "/prison-jobs" }]);
+    }, []);
 
     // Simulate loading
     useEffect(() => {
