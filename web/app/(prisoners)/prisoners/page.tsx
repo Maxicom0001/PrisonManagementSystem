@@ -122,6 +122,7 @@ export default function PrisonerDatabase() {
     setExpandedId(null)
   }
 
+  // Data in selected order is selected from database, and becasue of that we need to change the url
   const handleOrderChange = (column: string) => {
     const newUrl = "api/convicts?order=" + column + "&type=" + (url.includes("asc") ? "desc" : "asc")
     setUrl(newUrl)
@@ -132,7 +133,6 @@ export default function PrisonerDatabase() {
 
   return (
     <div className="flex flex-col max-w-7xl w-full h-full p-6 space-y-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Prisoners Managment System</h1>
       <div className="flex items-center justify-between gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
