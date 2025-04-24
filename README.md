@@ -1,84 +1,153 @@
-# Turborepo starter
 
-This Turborepo starter is maintained by the Turborepo core team.
+# 🏛️Prison Management System
 
-## Using this example
+Prison Management System is a comprehensive software solution designed to streamline the management of prison facilities, inmate records, staff activities, and security operations. It enables efficient data handling, enhances transparency, and improves overall institutional workflow.
 
-Run the following command:
 
-```sh
-npx create-turbo@latest
+## 🛠️Technologies Used
+
+* **Next.js** – A React framework for building full-stack applications with server-side rendering and API routes.
+
+* **Tailwind CSS** – A utility-first CSS framework for fast and responsive UI styling.
+
+* **ShadCN/UI** – A collection of pre-built, customizable UI components built on Tailwind CSS.
+
+* **TanStack Query** – A powerful tool for managing asynchronous data fetching, caching, and synchronization.
+
+* **Zod** – A TypeScript-first schema validation library for safely validating form and API data.
+
+* **Framer Motion** – A motion library for creating smooth animations and interactive UI elements in React.
+
+* **MySQL** – A relational database used to store and manage application data.
+
+* **Next.js** Server Actions – A new feature for securely handling server-side logic without the need for separate API routes.
+
+
+
+## 🖥Installation
+
+* **Install with npm**
+
+```bash
+  npm install 
+  npm run dev
 ```
+    
+## 👤Authors
 
-## What's inside?
+- [@Jakub Batko](https://github.com/Nasakrator) - 
+- [@Mateusz Lis](https://github.com/Maxicom0001) - 
+- [@Bartłomiej Szymczyk](https://github.com/GunterJP) -
+- [@Dawid Szymczyk](https://github.com/Crime420)- 
+- [@Aleksander Węglarz](https://github.com/kmcls)
+- [@Dominik Zawisza](https://github.com/Dominanima)
+- @Jan Żaba
+- @Maria Sowula 
+## Documentation
+### 👤 Osadzeni (`/CONVICTS`)
 
-This Turborepo includes the following packages/apps:
+| Pole                     | Typ             | Uwagi                                | Endpoint                                | Metoda |
+|--------------------------|------------------|---------------------------------------|------------------------------------------|--------|
+| ID                       | INT              | Primary Key, Auto Increment, Not Null | `/CONVICTS`                              | GET    |
+| Imie                     | Text             |                                       | `/CONVICTS/{CONVICT_ID}`                | GET    |
+| Nazwisko                 | Text             |                                       | `/CONVICTS`                              | POST   |
+| Drugie_imie              | Text             |                                       | `/CONVICTS/{CONVICT_ID}`                | DELETE |
+| Nazwisko_panienskie_matki| Text             |                                       | `/CONVICTS/{CONVICT_ID}`                | PATCH  |
+| Pesel                    | INT(11)          |                                       | `/CONVICTS/{CONVICT_ID}/CELL`           | PATCH  |
+| Miejsce_urodzenia        | String           |                                       |                                          |        |
+| Data_osadzenia           | Date             |                                       |                                          |        |
+| ID_wyroku                | INT              |                                       |                                          |        |
+| ID_celi                  | INT              |                                       |                                          |        |
 
-### Apps and Packages
+### ⚖️ Wyroki (`/SENTENCES`)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+| Pole         | Typ   | Uwagi                                | Endpoint                                | Metoda |
+|--------------|--------|---------------------------------------|------------------------------------------|--------|
+| ID           | INT    | Primary Key, Auto Increment, Not Null | `/SENTENCES`                             | GET    |
+| Czas_trwania | INT    |                                       | `/SENTENCES/{SENTENCE_ID}`              | GET    |
+| Powod        | Text   |                                       | `/SENTENCES`                             | POST   |
+| ID_status    | INT    |                                       | `/SENTENCES/{SENTENCE_ID}`              | PATCH  |
+| ID_grupy     | INT    |                                       | `/SENTENCES/{SENTENCE_ID}`              | DELETE |
+|              |        |                                       | `/SENTENCES/{SENTENCE_ID}`              | PATCH  |
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### 🏢 Cele (`/CELLS`)
 
-### Utilities
+| Pole        | Typ   | Uwagi                                | Endpoint                              | Metoda |
+|-------------|--------|---------------------------------------|----------------------------------------|--------|
+| ID          | INT    | Primary Key, Auto Increment, Not Null | `/CELLS`                               | POST   |
+| Pojemnosc   | INT    |                                       | `/CELLS/{CELL_ID}`                    | PATCH  |
+| ID_budynku  | INT    |                                       | `/CELLS/{CELL_ID}`                    | DELETE |
+| ID_Rodzaj   | INT    |                                       | `/CELLS/{CELL_ID}`                    | GET    |
+|             |        |                                       | `/CELLS/{CELL_ID}/AVAILABILITY`       | GET    |
+|             |        |                                       | `/CELLS/{CELL_ID}/CONVICTS`           | GET    |
+|             |        |                                       | `/CELLS`                               | GET    |
 
-This Turborepo has some additional tools already setup for you:
+### 👥 Grupy (`/GROUPS`)
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+| Pole             | Typ   | Uwagi                                | Endpoint                                | Metoda |
+|------------------|--------|---------------------------------------|------------------------------------------|--------|
+| ID               | INT    | Primary Key, Auto Increment, Not Null | `/GROUPS/{GROUP_ID}`                     | GET    |
+| Nazwa_grupy      | Text   |                                       | `/GROUPS`                                | POST   |
+| ID_Ograniczenia  | INT    | Primary Key, Auto Increment, Not Null | `/GROUPS/{GROUP_ID}`                     | PATCH  |
+|                  |        |                                       | `/GROUPS/{GROUP_ID}`                     | DELETE |
+|                  |        |                                       | `/GROUPS/{GROUP_ID}/CONVICTS`           | GET    |
+|                  |        |                                       | `/GROUPS`                                | GET    |
 
-### Build
+### 🏛️ Budynki (`/EDIFICES`)
 
-To build all apps and packages, run the following command:
+| Pole    | Typ    | Uwagi                                | Endpoint                                | Metoda |
+|---------|---------|---------------------------------------|------------------------------------------|--------|
+| ID      | INT     | Primary Key, Auto Increment, Not Null | `/EDIFICES`                              | POST   |
+| Adres   | String  |                                       | `/EDIFICES/{EDIFICE_ID}`                | PATCH  |
+| Funkcja | String  |                                       | `/EDIFICES/{EDIFICE_ID}`                | DELETE |
+|         |         |                                       | `/EDIFICES/{EDIFICE_ID}`                | GET    |
+|         |         |                                       | `/EDIFICES/{EDIFICE_ID}/WORKERS`        | GET    |
+|         |         |                                       | `/EDIFICES`                              | GET    |
 
-```
-cd my-turborepo
-pnpm build
-```
+### 👮 Pracownicy (`/WORKERS`)
 
-### Develop
+| Pole        | Typ      | Uwagi                                | Endpoint                                | Metoda |
+|-------------|-----------|---------------------------------------|------------------------------------------|--------|
+| ID          | INT       | Primary Key, Auto Increment, Not Null | `/WORKERS`                               | POST   |
+| ID_zadania  | INT       |                                       | `/WORKERS/{WORKER_ID}`                  | PATCH  |
+| Imie        | String    |                                       | `/WORKERS/{WORKER_ID}`                  | DELETE |
+| Nazwisko    | String    |                                       | `/WORKERS`                               | GET    |
+| Pesel       | INT(11)   |                                       | `/WORKERS/{WORKER_ID}`                  | GET    |
+| Pensja      | INT       |                                       |                                          |        |
+| ID_budynku  | INT       |                                       |                                          |        |
 
-To develop all apps and packages, run the following command:
+### 🟢 Statusy (`/STATUS`)
 
-```
-cd my-turborepo
-pnpm dev
-```
+| Pole   | Typ    | Uwagi                                | Endpoint                              | Metoda |
+|--------|---------|---------------------------------------|----------------------------------------|--------|
+| ID     | INT     | Primary Key, Auto Increment, Not Null | `/STATUS`                              | POST   |
+| Nazwa  | String  |                                       | `/STATUS/{STATUS_ID}`                 | PATCH  |
+|        |         |                                       | `/STATUS/{STATUS_ID}`                 | DELETE |
+|        |         |                                       | `/STATUS/{STATUS_ID}`                 | GET    |
 
-### Remote Caching
+### 🚪 Rodzaje Cel (`/CELL TYPE`)
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+| Pole  | Typ    | Uwagi                                | Endpoint                              | Metoda |
+|-------|---------|---------------------------------------|----------------------------------------|--------|
+| ID    | INT     | Primary Key, Auto Increment, Not Null | `/CELL TYPE`                           | POST   |
+| Nazwa | String  |                                       | `/CELL_TYPE/{TYPE_ID}`                | PATCH  |
+|       |         |                                       | `/CELL_TYPE/{TYPE_ID}`                | DELETE |
+|       |         |                                       | `/CELL_TYPE/{TYPE_ID}`                | GET    |
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### 🚫 Ograniczenia (`/CONSTRAINTS`)
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+| Pole  | Typ    | Uwagi                                | Endpoint                                  | Metoda |
+|-------|---------|---------------------------------------|--------------------------------------------|--------|
+| ID    | INT     | Primary Key, Auto Increment, Not Null | `/CONSTRAINTS`                             | POST   |
+| Nazwa | String  |                                       | `/CONSTRAINTS/{CONSTRAINT_ID}`            | PATCH  |
+|       |         |                                       | `/CONSTRAINTS/{CONSTRAINT_ID}`            | DELETE |
+|       |         |                                       | `/CONSTRAINTS/{CONSTRAINT_ID}`            | GET    |
 
-```
-cd my-turborepo
-npx turbo login
-```
+### 🛠️ Zadania (`/JOB`)
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+| Pole  | Typ    | Uwagi                                | Endpoint                        | Metoda |
+|-------|---------|---------------------------------------|----------------------------------|--------|
+| ID    | INT     | Primary Key, Auto Increment, Not Null | `/JOB`                           | POST   |
+| Nazwa | String  |                                       | `/JOB/{JOB_ID}`                 | PATCH  |
+|       |         |                                       | `/JOB/{JOB_ID}`                 | DELETE |
+|       |         |                                       | `/JOB/{JOB_ID}`                 | GET    |

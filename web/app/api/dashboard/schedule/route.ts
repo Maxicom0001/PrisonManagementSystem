@@ -1,15 +1,22 @@
 import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = connectDB()
+    const pool = connectDB();
 
+    async function queryAll<T>(sql: string): Promise<T[]> {
+        const [rows] = await pool.query(sql) as [T[], any];
+        return rows;
+    }
+
+    interface schedule { time: string, activity: string, status: string };
+    
     try {
-        const [totalActive] = await pool.query("SELECT COUNT(*) FROM jobs WHERE aktywne = true;");
-        const [completed] = await pool.query("SELECT COUNT(*) FROM jobs WHERE aktywne = false;");
+
+        const schedule = await queryAll<schedule>(
+            "SELECT schedule.time, title from `schedule`")
 
         const response = {
-            totalActive: totalActive,
-            completed: completed,
+            schedule: schedule
         };
 
         return new Response(JSON.stringify(response), {

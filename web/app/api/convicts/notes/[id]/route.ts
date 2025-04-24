@@ -1,18 +1,15 @@
 import connectDB from "@/components/api/connectDB";
+import { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     const pool = connectDB()
 
+    const id = params.id;
+
     try {
-        const [totalActive] = await pool.query("SELECT COUNT(*) FROM jobs WHERE aktywne = true;");
-        const [completed] = await pool.query("SELECT COUNT(*) FROM jobs WHERE aktywne = false;");
+        const [rows] = await pool.query(`SELECT notes.id, notes.content, notes.created_at FROM notes  JOIN convicts ON convicts.id = notes.convict_id WHERE convicts.id = ${id}`);
 
-        const response = {
-            totalActive: totalActive,
-            completed: completed,
-        };
-
-        return new Response(JSON.stringify(response), {
+        return new Response(JSON.stringify(rows), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",

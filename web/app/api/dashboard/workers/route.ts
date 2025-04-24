@@ -1,20 +1,25 @@
 import mysql from "mysql2/promise";
+import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+    const pool = connectDB();
 
+    async function queryOne<T>(sql: string): Promise<T> {
+        const [rows] = await pool.query(sql) as [T[], any];
+        return rows[0];
+    }
+
+    interface TotalWorkers { total: number };
+    interface TotalJobs { jobs: number };
     try {
-        const [total] = await pool.query("SELECT COUNT(*) AS `total` FROM `workers`");
-        const [jobs] = await pool.query("SELECT COUNT(*) AS `jobs` FROM `jobs` WHERE aktywne = true;");
+        const total = await queryOne<TotalWorkers>("SELECT COUNT(*) AS `total` FROM `workers`");
+        const jobs = await queryOne<TotalJobs>("SELECT COUNT(*) AS `jobs` FROM `jobs` WHERE aktywne = true;");
 
         const response = {
-            total: total,
-            jobs: jobs,
+            workers: {
+                total: total.total,
+                jobs: jobs.jobs,
+            }
         };
 
         return new Response(JSON.stringify(response), {

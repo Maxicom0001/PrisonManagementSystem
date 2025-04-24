@@ -1,16 +1,14 @@
-import mysql from "mysql2/promise";
 import { NextRequest } from "next/server";
+import connectDB from "@/components/api/connectDB";
 
-export async function GET() {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+export async function GET(req: NextRequest) {
+    const pool = connectDB()
 
     try {
-        const [rows] = await pool.query("SELECT * FROM convicts");
+        const searchParams = req.nextUrl.searchParams
+        const order = searchParams.get('order')
+        const type = searchParams.get('type') 
+        const [rows] = await pool.query(`SELECT convicts.id, convicts.imie, convicts.nazwisko, convicts.drugie_imie, convicts.nazwisko_panienskie_matki, convicts.pesel, convicts.miejsce_urodzenia, convicts.data_osadzenia, convicts.id_celi, convicts.data_wyjscia, sentences.czas_trwania AS wyrok, sentences.powod AS powod_wyroku FROM convicts INNER JOIN sentences ON sentences.id = convicts.id_wyroku WHERE data_wyjscia IS NULL ORDER BY ${order} ${type}`);
 
         return new Response(JSON.stringify(rows), {
             status: 200,
@@ -32,13 +30,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
-
+    const pool = connectDB()
 
     try {
         

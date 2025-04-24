@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import PageTransitionAnimation from "../own/pageTransition";
-import { Toaster } from "sonner"
+import { Toaster } from "sonner";
 
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
@@ -71,10 +71,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                                     </AnimatePresence>
                                 </header>
                                 <main className="flex-1 flex items-center justify-center">
-                                        {/* opóźnienie animacji */}
-                                        {children}
-                                        <Toaster richColors position="bottom-right" />
-                                        {/*showContent ? children : <PageTransitionAnimation />*/}
+                                    {/* opóźnienie animacji */}
+                                    {children}
+                                    <Toaster richColors position="bottom-right" />
+                                    {/*showContent ? children : <PageTransitionAnimation />*/}
                                 </main>
                             </SidebarInset>
                         </div>

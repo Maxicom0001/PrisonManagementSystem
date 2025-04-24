@@ -1,18 +1,14 @@
+import mysql from "mysql2/promise";
+import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = connectDB()
+    const pool = connectDB();
 
     try {
-        const [totalActive] = await pool.query("SELECT COUNT(*) FROM jobs WHERE aktywne = true;");
-        const [completed] = await pool.query("SELECT COUNT(*) FROM jobs WHERE aktywne = false;");
+        const [rows] = await pool.query("SELECT * FROM `schedule`");
 
-        const response = {
-            totalActive: totalActive,
-            completed: completed,
-        };
-
-        return new Response(JSON.stringify(response), {
+        return new Response(JSON.stringify(rows), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",

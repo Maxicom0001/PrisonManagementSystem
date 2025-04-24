@@ -1,18 +1,15 @@
 import mysql from "mysql2/promise";
+import { NextRequest } from "next/server";
+import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+    const pool = connectDB();
 
     try {
         const [statuses] = await pool.query("SELECT * FROM `statuses`;");
 
         const response = {
-            statuses: statuses
+            statuses: statuses,
         };
 
         return new Response(JSON.stringify(response), {
@@ -34,51 +31,33 @@ export async function GET() {
     }
 }
 
-
-/**export async function POST(request: Request){
-    const pool = mysql.createPool({
-        host: process.env.MYSQL_HOST || "127.0.0.1",
-        user: process.env.MYSQL_USER || "root",
-        password: process.env.MYSQL_PASSWORD || "",
-        database: process.env.MYSQL_DATABASE || "jail",
-    });
+export async function POST(req: NextRequest) {
+    const pool = connectDB();
 
     try {
-        const body = await request.json();
-        const { status } = body as { status?: string }; // type-safe access
+        const searchParams = req.nextUrl.searchParams;
+        const id = searchParams.get("id");
+        const nazwa = searchParams.get("nazwa");
 
-        if (!status) {
-            return new Response(JSON.stringify({ error: "Missing 'status' field" }), {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-        }
+        const query = `INSERT INTO 'statuses'('id', 'nazwa') VALUES ('${id}','${nazwa}')`;
 
-        const [insertId] = await pool.query(
-            "INSERT INTO `statuses` (`status`) VALUES (?);",
-            [status]
-        );
+        const [result] = await pool.execute(query);
 
-        return new Response(JSON.stringify({
-            message: "Status inserted successfully",
-            insertId: insertId,
-        }), {
-            status: 201,
+        return new Response(JSON.stringify({ success: true, insertedId: (result as any).insertId }), {
+            status: 200,
             headers: {
                 "Content-Type": "application/json",
             },
         });
     } catch (err) {
-        console.error("Error inserting data:", err);
+        console.error("Error executing query:", err);
         return new Response(JSON.stringify({ error: "Internal server error" }), {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
             },
         });
-    } finally{
-        await pool.end()
+    } finally {
+        await pool.end();
     }
-}**/
+}
