@@ -248,7 +248,7 @@ export function LoadingSchedule() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mx-auto py-10">
-      <Card className="w-full max-w-4xl mx-auto">
+      <Card className="w-full max-w-4xl mx-auto border-0 shadow-none bg-neutral">
         <CardHeader>
           <CardTitle className="text-2xl">
             <div className="h-8 bg-muted animate-pulse rounded w-48"></div>
@@ -261,7 +261,7 @@ export function LoadingSchedule() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="rounded-md border">
+          <div className="rounded-md border bg-[var(--color-card)] shadow-lg">
             <div className="grid grid-cols-12 border-b bg-muted/50 p-4 font-medium">
               <div className="col-span-2">Time</div>
               <div className="col-span-6">Activity</div>
