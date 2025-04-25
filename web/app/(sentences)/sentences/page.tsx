@@ -201,7 +201,7 @@ export default function SentencesPage() {
     }
 
     return (
-        <div className="container mx-auto py-8">
+        <div className="container max-w-7xl mx-auto p-6">
             <motion.h1
                 className="text-3xl font-bold mb-6"
                 initial={{ opacity: 0, y: -20 }}
