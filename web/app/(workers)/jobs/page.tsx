@@ -140,17 +140,17 @@ export default function JobDashboard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.3 }}
       >
-        <Card>
+        <Card className="p-0">
           <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="bg-[var(--color-muted)]/50">
                   <TableHead className="p-5">Job Name</TableHead>
                   <TableHead className="text-center">Status</TableHead>
                   {/* <TableHead className="text-right">Actions</TableHead> */}
                 </TableRow>
               </TableHeader>
-              <TableBody>
+              <TableBody className="bg-[var(--color-card)]">
                 {data.jobs.map((job: Job) => (
                   <TableRow key={job.id}>
                     <TableCell className="font-medium p-5">{job.nazwa}</TableCell>

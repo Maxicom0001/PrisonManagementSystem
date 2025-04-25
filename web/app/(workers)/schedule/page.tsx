@@ -96,7 +96,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="container mx-auto py-10"
+          className="container mx-auto"
         >
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
             <Card className="w-full max-w-4xl mx-auto bg-neutral border-0 shadow-none">
@@ -131,7 +131,6 @@ export default function Home() {
                     {data?.map((item: ScheduleItem) => (
                       <motion.div
                         key={item.id}
-                        variants={itemVariants}
                         className="grid grid-cols-12 border-b p-4 last:border-0"
                         whileHover={{ backgroundColor: "rgba(0,0,0,0.02)" }}
                       >
@@ -230,7 +229,7 @@ export function LoadingSchedule() {
 
   // Create 5 skeleton items
   const skeletonItems = Array.from({ length: 5 }).map((_, i) => (
-    <motion.div key={i} variants={itemVariants} className="grid grid-cols-12 border-b p-4 last:border-0">
+    <motion.div key={i} className="grid grid-cols-12 border-b p-4 last:border-0">
       <div className="col-span-2 font-medium">
         <div className="h-6 bg-muted animate-pulse rounded w-16"></div>
       </div>
