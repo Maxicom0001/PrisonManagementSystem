@@ -281,10 +281,11 @@ export default function PrisonerForm() {
               </FormItem>
             )}
           />
-
-          <Button type="submit" className="w-full md:w-auto">
-            Dodaj więźnia
-           </Button>
+          </div>
+          <div className="flex justify-end">
+            <Button type="submit" className="w-full md:w-auto">
+              Dodaj więźnia
+            </Button>
           </div>
           </form>
         </Form> 
