@@ -49,12 +49,12 @@ export default function Home() {
     }
 
     const handleSave = (updatedItem: ScheduleItem) => {
-        // Create a properly typed updated item
-        const typedItem: ScheduleItem = {
-            ...updatedItem,
-        };
-
         setOpenAdd(false);
+    };
+
+    const handleDelete = (id: number) => {
+        console.log("Deleting item with id:", id);
+        setOpenEdit(false);
     };
 
     const badgeVariant = (time: string) => {
@@ -187,7 +187,7 @@ export default function Home() {
                     <DialogTitle>Edit schedule entry</DialogTitle>
                     <DialogDescription>Change activity details in the schedule</DialogDescription>
                   </DialogHeader>
-                  {selectedItem ? <EditScheduleForm item={selectedItem} onSave={handleSave} /> : null}
+                  {selectedItem ? <EditScheduleForm item={selectedItem} onSave={handleSave} onDelete={handleDelete} /> : null}
                 </DialogContent>
               </Dialog>
             )}

@@ -15,9 +15,10 @@ type ScheduleItem = {
 interface EditScheduleFormProps {
     item?: ScheduleItem;
     onSave: (updatedItem: ScheduleItem) => void;
+    onDelete: (id: number) => void;
 }
 
-export function EditScheduleForm({ item, onSave }: EditScheduleFormProps) {
+export function EditScheduleForm({ item, onSave, onDelete }: EditScheduleFormProps) {
     // Check if item exists, if not use a default empty item
     const defaultItem: ScheduleItem = item || {
         id: 0,
@@ -50,11 +51,16 @@ export function EditScheduleForm({ item, onSave }: EditScheduleFormProps) {
                     name="time"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Time</FormLabel>
-                            <FormControl>
-                                <Input {...field} placeholder="np. 07:00:00" />
-                            </FormControl>
-                            <FormMessage />
+                        <FormLabel>Time</FormLabel>
+                        <FormControl>
+                            <Input 
+                            type="time" 
+                            {...field} 
+                            step="1"  // pozwala na sekundy (HH:MM:SS), usuń, jeśli chcesz tylko HH:MM
+                            placeholder="Wybierz godzinę"
+                            />
+                        </FormControl>
+                        <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -72,7 +78,8 @@ export function EditScheduleForm({ item, onSave }: EditScheduleFormProps) {
                         </FormItem>
                     )}
                 />
-                <div className="flex justify-end">
+                <div className="flex justify-end space-x-2">
+                    <Button variant={"destructive"} onClick={() => onDelete(item?.id || 0)}>Delete</Button>
                     <Button type="submit">Save changes</Button>
                 </div>
             </form>
