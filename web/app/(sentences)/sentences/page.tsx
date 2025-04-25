@@ -5,21 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useHeader } from "@/components/providers/header-title-provider";
+import fetchData from "@/components/api/fetch-data";
 
-type ApiSentence = {
+type Sentence = {
     id: number;
     czas_trwania: number;
     powod: string;
     id_status: number;
     id_grupy: number;
-};
-
-type CriminalOffense = {
-    id: number;
-    duration: number;
-    offense: string;
-    statusId: number;
-    groupId: number;
 };
 
 const statusMap: Record<number, { label: string; color: string }> = {
@@ -55,12 +49,12 @@ function formatDuration(days: number): string {
     return result.trim();
 }
 
-function generateSentence(offense: CriminalOffense): string {
-    const status = statusMap[offense.statusId]?.label || "Unknown status";
-    const group = groupMap[offense.groupId]?.label || "Unknown group";
-    const duration = formatDuration(offense.duration);
+function generateSentence(offense: Sentence): string {
+    const status = statusMap[offense.id_status]?.label || "Unknown status";
+    const group = groupMap[offense.id_grupy]?.label || "Unknown group";
+    const duration = formatDuration(offense.czas_trwania);
 
-    return `Convicted of ${offense.offense.toLowerCase()}, sentenced to ${duration}. Case status: ${status}. Classified as ${group} offense.`;
+    return `Convicted of ${offense.powod.toLowerCase()}, sentenced to ${duration}. Case status: ${status}. Classified as ${group} offense.`;
 }
 
 const containerVariants = {
@@ -139,89 +133,39 @@ const durationVariants = {
     },
 };
 
-async function fetchSentences(): Promise<CriminalOffense[]> {
-    const response = await fetch("/api/sentences");
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch sentences");
-    }
-
-    const data: ApiSentence[] = await response.json();
-
-    return data.map((item) => ({
-        id: item.id,
-        duration: item.czas_trwania,
-        offense: item.powod,
-        statusId: item.id_status,
-        groupId: item.id_grupy,
-    }));
-}
 
 export default function SentencesPage() {
-    const [isAnimating, setIsAnimating] = useState(false);
+
+    const { setHeader } = useHeader();
+
+    useEffect( () => {
+        setHeader([{ title: "Criminal Sentences Database", href: "/sentences" }]);
+    })
 
     const {
-        data: criminalOffenses,
+        data,
         isLoading,
         isError,
         error,
     } = useQuery({
         queryKey: ["sentences"],
-        queryFn: fetchSentences,
+        queryFn: () => fetchData("api/sentences"),
         refetchOnWindowFocus: false,
     });
 
-    useEffect(() => {
-        if (criminalOffenses && !isLoading) {
-            setIsAnimating(true);
-        }
-    }, [criminalOffenses, isLoading]);
+    if (isLoading) { return <div>Loading...</div>;}
 
-    if (isLoading) {
-        return (
-            <div className="container mx-auto py-8">
-                <h1 className="text-3xl font-bold mb-6">Criminal Sentences Database</h1>
-                <div className="flex justify-center items-center h-64">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
-                </div>
-            </div>
-        );
-    }
-
-    if (isError) {
-        return (
-            <div className="container mx-auto py-8">
-                <h1 className="text-3xl font-bold mb-6">Criminal Sentences Database</h1>
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <strong className="font-bold">Error: </strong>
-                    <span className="block sm:inline">{(error as Error).message || "Failed to load sentences"}</span>
-                </div>
-            </div>
-        );
-    }
+    if (isError) {return <div>Error: {error.message}</div>;}
 
     return (
         <div className="container max-w-7xl mx-auto p-6">
-            <motion.h1
-                className="text-3xl font-bold mb-6"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                }}
-            >
-                Criminal Sentences Database
-            </motion.h1>
-
             <motion.div
                 className="grid grid-cols-1 md:grid-cols-2 gap-6"
                 variants={containerVariants}
                 initial="hidden"
-                animate={isAnimating ? "visible" : "hidden"}
+                animate="visible"
             >
-                {criminalOffenses?.map((offense) => (
+                {data.map((offense: Sentence) => (
                     <motion.div
                         key={offense.id}
                         variants={cardVariants}
@@ -234,17 +178,17 @@ export default function SentencesPage() {
                             <CardHeader className="pb-3">
                                 <div className="flex justify-between items-start">
                                     <motion.div variants={titleVariants}>
-                                        <CardTitle className="text-xl">{offense.offense}</CardTitle>
+                                        <CardTitle className="text-xl">{offense.powod}</CardTitle>
                                     </motion.div>
                                     <div className="flex gap-2">
                                         <motion.div variants={badgeVariants}>
-                                            <Badge className={statusMap[offense.statusId]?.color || "bg-gray-100"}>
-                                                {statusMap[offense.statusId]?.label || "Unknown"}
+                                            <Badge className={statusMap[offense.id_status]?.color || "bg-gray-100"}>
+                                                {statusMap[offense.id_status]?.label || "Unknown"}
                                             </Badge>
                                         </motion.div>
                                         <motion.div variants={badgeVariants}>
-                                            <Badge className={groupMap[offense.groupId]?.color || "bg-gray-100"}>
-                                                {groupMap[offense.groupId]?.label || "Unknown"}
+                                            <Badge className={groupMap[offense.id_grupy]?.color || "bg-gray-100"}>
+                                                {groupMap[offense.id_grupy]?.label || "Unknown"}
                                             </Badge>
                                         </motion.div>
                                     </div>
@@ -258,7 +202,7 @@ export default function SentencesPage() {
                                     {generateSentence(offense)}
                                 </motion.p>
                                 <motion.div className="mt-3 text-sm text-gray-500" variants={durationVariants}>
-                                    <span className="font-medium">Sentence duration:</span> {formatDuration(offense.duration)}
+                                    <span className="font-medium">Sentence duration:</span> {formatDuration(offense.czas_trwania)}
                                 </motion.div>
                             </CardContent>
                         </Card>
