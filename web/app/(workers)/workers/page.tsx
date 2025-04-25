@@ -11,6 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { useHeader } from "@/components/providers/header-title-provider"
 import fetchData from "@/components/api/fetch-data"
 import { useQuery } from "@tanstack/react-query"
+import Link from "next/link"
 // Types
 interface Employee {
   id: number
@@ -129,9 +130,11 @@ export default function EmployeeDatabase() {
             disabled={isLoading}
           />
         </div>
-        <Button onClick={handleAddEmployee} disabled={isLoading}>
-          <UserPlus className="h-4 w-4 mr-2" />
-          Add Employee
+        <Button disabled={isLoading} asChild>
+          <Link href="/workers/add">
+            <UserPlus className="h-4 w-4" />
+            Add Employee
+          </Link>
         </Button>
       </div>
 
