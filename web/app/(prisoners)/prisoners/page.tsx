@@ -162,11 +162,11 @@ export default function PrisonerDatabase() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
-            className="rounded-md border bg-background shadow flex-grow overflow-auto"
+            className="rounded-md border bg-background shadow flex overflow-auto"
           >
             <Table>
-              <TableHeader className="bg-[var(--color-muted)]/50">
-                <TableRow>
+              <TableHeader>
+                <TableRow className="bg-[var(--color-muted)]/50">
                   <TableHead className="w-[80px] cursor-pointer">
                     <div className="flex items-center">
                       ID
@@ -204,7 +204,7 @@ export default function PrisonerDatabase() {
                 {filteredPrisoners?.map((prisoner) => (
                   <React.Fragment key={prisoner.id}>
                     <TableRow
-                      className={expandedId === prisoner.id ? "border-b-0 hover:bg-muted/50" : "hover:bg-muted/50"}
+                      className={expandedId === prisoner.id ? "border-b-0 hover:bg-muted/50" : "hover:bg-muted/50 bg-[var(--color-card)]/50"}
                     >
                       <TableCell>{prisoner.id}</TableCell>
                       <TableCell>{prisoner.imie}</TableCell>
@@ -348,7 +348,7 @@ export default function PrisonerDatabase() {
 
 const TableLoadingPlaceholder = () => {
   return (
-    <div className="rounded-md border bg-background shadow flex-1 overflow-auto">
+    <div className="rounded-md border bg-background shadow flex overflow-auto">
       <Table>
         <TableHeader>
           <TableRow>
@@ -371,7 +371,7 @@ const TableLoadingPlaceholder = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Array(30)
+          {Array(5)
             .fill(0)
             .map((_, index) => (
               <TableRow key={index}>
