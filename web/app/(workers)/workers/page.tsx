@@ -75,7 +75,7 @@ export default function EmployeeDatabase() {
         });
 
     useEffect(() => {
-        setHeader([{ title: "Workers", href: "/workers" }]);
+        setHeader([{ title: "Workers Management", href: "/workers" }]);
     }, []);
 
   const [searchTerm, setSearchTerm] = useState("")

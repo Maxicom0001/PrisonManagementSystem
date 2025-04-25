@@ -67,7 +67,7 @@ export default function PrisonerDatabase() {
   const [queryKey, setQueryKey] = useState("convicts/id/asc")
 
   useEffect(() => {
-    setHeader([{ title: "Prisoners", href: "/prisoners" }])
+    setHeader([{ title: "Prisoners Management", href: "/prisoners" }])
   }, [])
 
 
