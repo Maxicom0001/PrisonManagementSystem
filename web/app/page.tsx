@@ -15,7 +15,7 @@ export default function PrisonHomepage() {
 
     const { theme } = useTheme();
 
-    console.log(theme)
+    console.log(theme);
 
     useEffect(() => {
         setHeader([{ title: "Home", href: "/" }]);
@@ -97,7 +97,12 @@ export default function PrisonHomepage() {
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <Image src={"/images/prison-layout.png"} alt="Prison layout" fill className={theme == "dark" ? "w-full h-auto object-contain invert" : "w-full h-auto object-contain"} />
+                    <Image
+                        src={"/images/prison-layout.png"}
+                        alt="Prison layout"
+                        fill
+                        className={theme == "dark" ? "w-full h-auto object-contain invert" : "w-full h-auto object-contain"}
+                    />
                 </motion.div>
             </motion.div>
 
