@@ -8,6 +8,9 @@ import { CalendarIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardHeader, CardContent, CardFooter, CardDescription, CardTitle } from "@/components/ui/card"
+import { UserCircle } from "lucide-react"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -16,6 +19,7 @@ import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { useHeader } from "@/components/providers/header-title-provider"
 import { useEffect } from "react"
+import { motion } from "framer-motion"
 
 // Przykładowe dane dla wyroków i cel
 const sentences = [
@@ -81,26 +85,47 @@ export default function PrisonerForm() {
     })
     form.reset()
   }
-
   return (
-    <div className="flex flex-col space-y-4 max-w-7xl w-full p-6">
-     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Imię */}
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Imię</FormLabel>
-                <FormControl>
-                  <Input placeholder="Wprowadź imię" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <motion.div
+      className="w-full max-w-4xl p-6"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, type: "spring", stiffness: 100 }}
+    >
+    <Card className="mx-auto border-2 shadow-lg">
+      <CardHeader className="flex flex-row items-center gap-6 border-b pb-6">
+        <div className="flex items-center justify-center w-32 h-32 bg-gray-100 rounded-full overflow-hidden">
+          <UserCircle className="w-28 h-28 text-gray-400" />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">
+            New Prisoner
+          </h1>
+          <p className="text-muted-foreground">Prisoner ID: 12345</p>
+        </div>
+      </CardHeader>
+      <CardContent className="pt-6">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* First Name */}
+          <div className="space-y-2">
+              {/* Imię */}
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Imię</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Wprowadź imię" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+          </div>
 
           {/* Nazwisko */}
           <FormField
@@ -256,14 +281,16 @@ export default function PrisonerForm() {
               </FormItem>
             )}
           />
-        </div>
 
-        <Button type="submit" className="w-full md:w-auto">
-          Dodaj więźnia
-        </Button>
-      </form>
-    </Form>
-    </div>
+          <Button type="submit" className="w-full md:w-auto">
+            Dodaj więźnia
+           </Button>
+          </div>
+          </form>
+        </Form> 
+      </CardContent>
+    </Card>
+   </motion.div>
   )
 }
 
