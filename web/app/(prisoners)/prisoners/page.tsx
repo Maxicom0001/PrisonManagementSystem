@@ -104,12 +104,6 @@ export default function PrisonerDatabase() {
     }
   }
 
-  // Funkcja do obsługi dodawania nowego więźnia
-  const handleAddPrisoner = () => {
-    console.log("Dodawanie nowego więźnia")
-    // Tutaj możesz dodać własną logikę dodawania więźnia
-  }
-
   // Funkcja do obsługi edycji
   const handleEdit = (id: number) => {
     console.log(`Edytowanie więźnia o ID: ${id}`)
@@ -144,7 +138,7 @@ export default function PrisonerDatabase() {
             disabled={isLoading}
           />
         </div>
-        <Button onClick={handleAddPrisoner} disabled={isLoading} asChild>
+        <Button disabled={isLoading} asChild>
           <Link href="/prisoners/add">
             <UserPlus className="h-4 w-4 mr-2" />
             Add prisoner

@@ -41,25 +41,30 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     const pool = connectDB();
+    console.log("POST request received");
 
-    console.log("route");
     try {
         const body = await req.json();
-        console.log("json body:", body);
+
         const imie = body.firstName;
         const nazwisko = body.lastName;
         const drugie_imie = body.middleName;
         const nazwisko_panienskie_matki = body.mothersMaidenName;
-        const pesel = Number(body.pesel);
+        const pesel = body.pesel
         const miejsce_urodzenia = body.birthplace;
-        const data_osadzenia = formatDateToMySQL(body.incarcerationDate);
+        const data_osadzenia = body.incarcerationDate.split("T")[0]; // Extract the date part from the datetime string
         const id_wyroku = Number(body.sentenceId);
         const id_celi = Number(body.cellId);
-        console.log("json parsed");
-        const query = `INSERT INTO 'convicts'('id', 'imie', 'nazwisko', 'drugie_imie', 'nazwisko_panienskie_matki', 'pesel', 'miejsce_urodzenia', 'data_osadzenia', 'id_wyroku', 'id_celi') VALUES ('','${imie}','${nazwisko}','${drugie_imie}','${nazwisko_panienskie_matki}',${pesel},'${miejsce_urodzenia}','${data_osadzenia}',${id_wyroku},${id_celi})`;
-        console.log("query ready");
-        const [result] = await pool.execute(query);
-        console.log("pool executed successfully");
+
+
+        const query = `INSERT INTO convicts (imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        
+        const values = [imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi];
+
+        console.log("query: ",  query)
+
+        const [result] = await pool.execute(query, values);
         return new Response(JSON.stringify({ success: true, insertedId: (result as any).insertId }), {
             status: 200,
             headers: {
@@ -67,7 +72,7 @@ export async function POST(req: NextRequest) {
             },
         });
     } catch (err) {
-        console.error("Error executing query:", err);
+        //console.error("Error executing query:", err);
         return new Response(JSON.stringify({ error: "Internal server error" }), {
             status: 500,
             headers: {
