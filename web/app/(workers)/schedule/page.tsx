@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { AddScheduleForm } from "./add-schedule-form";
 import { useHeader } from "@/components/providers/header-title-provider";
 import { AnimatePresence, motion } from "framer-motion";
+import deleteData from "@/components/api/delete-data";
 
 type ScheduleItem = {
     id: number;
@@ -29,7 +30,7 @@ export default function Home() {
         setHeader([{ title: "Schedule", href: "/schedule" }]);
     }, []);
 
-    const { data, isLoading, isError, error } = useQuery({
+    const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["schedule"],
         queryFn: () => fetchData("api/schedule"),
         refetchOnWindowFocus: false,
@@ -52,8 +53,9 @@ export default function Home() {
     };
 
     const handleDelete = (id: number) => {
-        console.log("Deleting item with id:", id);
+        deleteData("api/schedule/" + id, {});
         setOpenEdit(false);
+        refetch();
     };
 
     const badgeVariant = (time: string) => {
