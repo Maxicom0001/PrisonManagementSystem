@@ -41,3 +41,4 @@ yarn-error.log*
 *.pem
 
 web/components/api/connectDB.tsx
+components/api/connectDB.tsx
