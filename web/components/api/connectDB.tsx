@@ -5,7 +5,7 @@ export default function connectDB() {
         host: process.env.MYSQL_HOST || "127.0.0.2",
         user: process.env.MYSQL_USER || "root ",
         password: process.env.MYSQL_PASSWORD || ".",
-        database: process.env.MYSQL_DATABASE || "jail",
+        database: process.env.MYSQL_DATABASE || "prison", //dont change maxicom you stupid nigger
     });
 
     return pool;
