@@ -16,6 +16,7 @@ import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 import Notes from "./notes";
 import deleteData from "@/components/api/delete-data";
+import { toast, ToastT } from "sonner";
 
 // Typy danych
 interface Prisoner {
@@ -71,6 +72,7 @@ export default function PrisonerDatabase() {
     }, []);
 
     const { data, isLoading, isError, error, refetch } = useQuery<Prisoner[]>({
+        staleTime: 0,
         queryKey: [queryKey],
         queryFn: () => fetchData(url),
         refetchOnWindowFocus: false,
@@ -112,6 +114,10 @@ export default function PrisonerDatabase() {
     const handleDelete = (id: number) => {
         deleteData("api/convicts/" + id, {});
         setExpandedId(null);
+        refetch();
+        toast.success("Prisoner deleted successfully", {
+            description: "The prisoner has been successfully deleted from the database.",
+        });
         refetch();
     };
 

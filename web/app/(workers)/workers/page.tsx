@@ -13,6 +13,7 @@ import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import deleteData from "@/components/api/delete-data";
+import { toast, ToastT } from "sonner";
 
 // Types
 interface Employee {
@@ -70,6 +71,7 @@ export default function EmployeeDatabase() {
     const { setHeader } = useHeader();
 
     const { data, isLoading, isError, error, refetch } = useQuery({
+        staleTime: 0,
         queryKey: ["workers"],
         queryFn: () => fetchData("api/workers"),
         refetchOnWindowFocus: false,
@@ -108,6 +110,10 @@ export default function EmployeeDatabase() {
     // Function to handle deleting
     const handleDelete = (id: number) => {
         deleteData("api/workers/" + id, {});
+        refetch();
+        toast.success("Employee deleted successfully", {
+            description: "The employee has been removed from the database.",
+        });
         refetch();
     };
 

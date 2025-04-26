@@ -13,6 +13,7 @@ import { AddScheduleForm } from "./add-schedule-form";
 import { useHeader } from "@/components/providers/header-title-provider";
 import { AnimatePresence, motion } from "framer-motion";
 import deleteData from "@/components/api/delete-data";
+import { toast, ToastT } from "sonner";
 
 type ScheduleItem = {
     id: number;
@@ -31,6 +32,7 @@ export default function Home() {
     }, []);
 
     const { data, isLoading, isError, error, refetch } = useQuery({
+        staleTime: 0,
         queryKey: ["schedule"],
         queryFn: () => fetchData("api/schedule"),
         refetchOnWindowFocus: false,
@@ -55,6 +57,10 @@ export default function Home() {
     const handleDelete = (id: number) => {
         deleteData("api/schedule/" + id, {});
         setOpenEdit(false);
+        refetch();
+        toast.success("Schedule entry deleted", {
+            description: "Schedule entry has been deleted successfully.",
+        } as ToastT);
         refetch();
     };
 
