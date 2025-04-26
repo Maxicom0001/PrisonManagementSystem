@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { number, z } from "zod";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
@@ -43,7 +43,7 @@ const formSchema = z.object({
     firstName: z.string().min(2, { message: "Imię musi mieć co najmniej 2 znaki" }),
     lastName: z.string().min(2, { message: "Nazwisko musi mieć co najmniej 2 znaki" }),
     pesel: z.string().length(11, { message: "PESEL musi mieć dokładnie 11 cyfr" }).regex(/^\d+$/, { message: "PESEL może zawierać tylko cyfry" }),
-    pensja: z.string().min(0, { message: "Pensja musi być większa od 0" }),
+    pensja: z.number().min(0, { message: "Pensja musi być większa od 0" }),
     buildingId: z.string({ required_error: "Wybierz budynek" }),
     jobId: z.string({ required_error: "Wybierz prace" }),
 });
@@ -63,7 +63,7 @@ export default function PrisonerForm() {
             firstName: "",
             lastName: "",
             pesel: "",
-            pensja: "0",
+            pensja: 0,
             buildingId: "1",
             jobId: "1",
         },
@@ -168,7 +168,13 @@ export default function PrisonerForm() {
                                         <FormItem>
                                             <FormLabel>PESEL</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Wprowadź PESEL" maxLength={11} {...field} />
+                                                <Input
+                                                    placeholder="Wprowadź PESEL"
+                                                    maxLength={11}
+                                                    {...field}
+                                                    onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
+                                                    type={"number"}
+                                                />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -226,7 +232,7 @@ export default function PrisonerForm() {
                                     )}
                                 />
 
-                                {/* PESEL */}
+                                {/* PENSJA */}
                                 <FormField
                                     control={form.control}
                                     name="pensja"
@@ -234,7 +240,15 @@ export default function PrisonerForm() {
                                         <FormItem>
                                             <FormLabel>Pensja</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Wprowadź pensje" maxLength={11} {...field} />
+                                                <Input
+                                                    placeholder="Wprowadź pensję"
+                                                    maxLength={6}
+                                                    {...field}
+                                                    value={field.value ?? ""} // zabezpieczenie na undefined
+                                                    onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
+                                                    type={"number"}
+                                                    name={"number"}
+                                                />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
