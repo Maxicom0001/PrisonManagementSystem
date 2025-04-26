@@ -5,12 +5,16 @@ export async function GET() {
     const pool = connectDB();
 
     async function queryOne<T>(sql: string): Promise<T> {
-        const [rows] = await pool.query(sql) as [T[], any];
+        const [rows] = (await pool.query(sql)) as [T[], any];
         return rows[0];
     }
 
-    interface TotalWorkers { total: number };
-    interface TotalJobs { jobs: number };
+    interface TotalWorkers {
+        total: number;
+    }
+    interface TotalJobs {
+        jobs: number;
+    }
     try {
         const total = await queryOne<TotalWorkers>("SELECT COUNT(*) AS `total` FROM `workers`");
         const jobs = await queryOne<TotalJobs>("SELECT COUNT(*) AS `jobs` FROM `jobs` WHERE aktywne = true;");
@@ -19,7 +23,7 @@ export async function GET() {
             workers: {
                 total: total.total,
                 jobs: jobs.jobs,
-            }
+            },
         };
 
         return new Response(JSON.stringify(response), {

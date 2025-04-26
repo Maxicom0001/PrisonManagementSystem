@@ -4,19 +4,21 @@ export async function GET() {
     const pool = connectDB();
 
     async function queryAll<T>(sql: string): Promise<T[]> {
-        const [rows] = await pool.query(sql) as [T[], any];
+        const [rows] = (await pool.query(sql)) as [T[], any];
         return rows;
     }
 
-    interface schedule { time: string, activity: string, status: string };
-    
-    try {
+    interface schedule {
+        time: string;
+        activity: string;
+        status: string;
+    }
 
-        const schedule = await queryAll<schedule>(
-            "SELECT schedule.time, title from `schedule`")
+    try {
+        const schedule = await queryAll<schedule>("SELECT schedule.time, title from `schedule`");
 
         const response = {
-            schedule: schedule
+            schedule: schedule,
         };
 
         return new Response(JSON.stringify(response), {

@@ -3,7 +3,9 @@ import connectDB from "@/components/api/connectDB";
 export async function GET() {
     const pool = connectDB();
 
-    interface CountRow { total: number }
+    interface CountRow {
+        total: number;
+    }
     interface Convict {
         id: string;
         imie: string;
@@ -16,20 +18,27 @@ export async function GET() {
         data_osadzenia: string;
         new_date: string;
     }
-    interface TotalCellsRow { totalCells: number }
+    interface TotalCellsRow {
+        totalCells: number;
+    }
 
     async function queryOne<T>(sql: string): Promise<T> {
-        const [rows] = await pool.query(sql) as [T[], any];
+        const [rows] = (await pool.query(sql)) as [T[], any];
         return rows[0];
     }
 
     try {
         const total = await queryOne<CountRow>("SELECT COUNT(*) AS total FROM convicts WHERE data_wyjscia IS NULL");
-        const newest = await queryOne<Convict>("SELECT id, data_osadzenia, imie, nazwisko FROM convicts WHERE data_wyjscia IS NULL ORDER BY data_osadzenia DESC LIMIT 1");
-        const oldest = await queryOne<Convict>("SELECT id, data_osadzenia, imie, nazwisko FROM convicts WHERE data_wyjscia IS NULL ORDER BY data_osadzenia ASC LIMIT 1 ");
-        const nextRelease = await queryOne<NextReleaseRow>("SELECT convicts.id, imie, data_osadzenia, DATE_ADD(data_osadzenia, INTERVAL sentences.czas_trwania DAY) AS new_date FROM convicts JOIN sentences ON convicts.id_wyroku = sentences.id WHERE data_wyjscia IS NULL ORDER BY new_date ASC LIMIT 1");
+        const newest = await queryOne<Convict>(
+            "SELECT id, data_osadzenia, imie, nazwisko FROM convicts WHERE data_wyjscia IS NULL ORDER BY data_osadzenia DESC LIMIT 1",
+        );
+        const oldest = await queryOne<Convict>(
+            "SELECT id, data_osadzenia, imie, nazwisko FROM convicts WHERE data_wyjscia IS NULL ORDER BY data_osadzenia ASC LIMIT 1 ",
+        );
+        const nextRelease = await queryOne<NextReleaseRow>(
+            "SELECT convicts.id, imie, data_osadzenia, DATE_ADD(data_osadzenia, INTERVAL sentences.czas_trwania DAY) AS new_date FROM convicts JOIN sentences ON convicts.id_wyroku = sentences.id WHERE data_wyjscia IS NULL ORDER BY new_date ASC LIMIT 1",
+        );
         const totalCells = await queryOne<TotalCellsRow>("SELECT SUM(pojemnosc) AS totalCells FROM cells");
-                
 
         const response = {
             prisoners: {

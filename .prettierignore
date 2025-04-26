@@ -3,4 +3,8 @@ dist
 build
 *.log
 .turbo
-.next/** 
+.next/**
+web/.next
+web/node_modules
+*.d.ts
+*.d

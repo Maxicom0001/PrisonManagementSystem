@@ -5,13 +5,25 @@ export async function GET() {
     const pool = connectDB();
 
     async function queryOne<T>(sql: string): Promise<T> {
-        const [rows] = await pool.query(sql) as [T[], any];
+        const [rows] = (await pool.query(sql)) as [T[], any];
         return rows[0];
     }
 
-    interface longestSentence { convicts_id: number, czas_trwania: string, powod: string };
-    interface shortestSentence { convicts_id: number, czas_trwania: string, powod: string };        
-    interface newestSentence { convicts_id: number, czas_trwania: string, powod: string };
+    interface longestSentence {
+        convicts_id: number;
+        czas_trwania: string;
+        powod: string;
+    }
+    interface shortestSentence {
+        convicts_id: number;
+        czas_trwania: string;
+        powod: string;
+    }
+    interface newestSentence {
+        convicts_id: number;
+        czas_trwania: string;
+        powod: string;
+    }
 
     try {
         const longest = await queryOne<longestSentence>(
@@ -24,11 +36,9 @@ export async function GET() {
             "SELECT convicts.id AS `convicts_id` , sentences.czas_trwania, sentences.powod FROM `convicts` JOIN sentences ON convicts.id_wyroku = sentences.id ORDER BY convicts.data_osadzenia DESC LIMIT 1;",
         );
 
-        const totalActive = await queryOne<{ totalActive: number }>(
-            "SELECT COUNT(*) AS totalActive FROM `convicts` WHERE `data_wyjscia` IS NULL;");
+        const totalActive = await queryOne<{ totalActive: number }>("SELECT COUNT(*) AS totalActive FROM `convicts` WHERE `data_wyjscia` IS NULL;");
 
-        const completed = await queryOne<{ completed: number }>(
-            "SELECT COUNT(*) AS completed FROM `convicts` WHERE `data_wyjscia` IS NOT NULL;");
+        const completed = await queryOne<{ completed: number }>("SELECT COUNT(*) AS completed FROM `convicts` WHERE `data_wyjscia` IS NOT NULL;");
 
         const response = {
             sentences: {

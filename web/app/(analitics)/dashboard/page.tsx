@@ -13,7 +13,6 @@ import SentencesTile from "./sentencesTile";
 import ScheduleTile from "./scheduleTile";
 import PrisonTile from "./prisonTile";
 
-
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -45,7 +44,6 @@ export default function Dashboard() {
                 {/* Workers Tile */}
                 <WorkersTile></WorkersTile>
 
-
                 {/* Prison Tile */}
                 <PrisonTile></PrisonTile>
 
@@ -56,7 +54,6 @@ export default function Dashboard() {
 
                 {/* Clock Tile */}
                 <ScheduleTile></ScheduleTile>
-
             </motion.div>
         </div>
     );

@@ -51,16 +51,16 @@ export function EditScheduleForm({ item, onSave, onDelete }: EditScheduleFormPro
                     name="time"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel>Time</FormLabel>
-                        <FormControl>
-                            <Input 
-                            type="time" 
-                            {...field} 
-                            step="1"  // pozwala na sekundy (HH:MM:SS), usuń, jeśli chcesz tylko HH:MM
-                            placeholder="Wybierz godzinę"
-                            />
-                        </FormControl>
-                        <FormMessage />
+                            <FormLabel>Time</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="time"
+                                    {...field}
+                                    step="1" // pozwala na sekundy (HH:MM:SS), usuń, jeśli chcesz tylko HH:MM
+                                    placeholder="Wybierz godzinę"
+                                />
+                            </FormControl>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -79,7 +79,9 @@ export function EditScheduleForm({ item, onSave, onDelete }: EditScheduleFormPro
                     )}
                 />
                 <div className="flex justify-end space-x-2">
-                    <Button variant={"destructive"} onClick={() => onDelete(item?.id || 0)}>Delete</Button>
+                    <Button variant={"destructive"} onClick={() => onDelete(item?.id || 0)}>
+                        Delete
+                    </Button>
                     <Button type="submit">Save changes</Button>
                 </div>
             </form>

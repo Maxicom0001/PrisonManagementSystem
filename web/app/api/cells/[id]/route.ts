@@ -2,7 +2,7 @@ import connectDB from "@/components/api/connectDB";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToCheck = params.id;
     try {
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     }
 }
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToDelete = params.id;
     try {
@@ -67,7 +67,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 }
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToUpdate = params.id;
     const body = await request.json();

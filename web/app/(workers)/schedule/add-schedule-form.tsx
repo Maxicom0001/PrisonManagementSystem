@@ -18,7 +18,7 @@ interface EditScheduleFormProps {
 
 export function AddScheduleForm() {
     // Check if item exists, if not use a default empty item
-    const defaultItem: ScheduleItem ={
+    const defaultItem: ScheduleItem = {
         time: "",
         title: "",
     };
@@ -42,8 +42,7 @@ export function AddScheduleForm() {
     const onSave = (updatedItem: ScheduleItem) => {
         // Handle the save logic here, e.g., send to API or update state
         console.log("Saved item:", updatedItem);
-    }
-
+    };
 
     return (
         <Form {...form}>
@@ -55,11 +54,11 @@ export function AddScheduleForm() {
                         <FormItem>
                             <FormLabel>Time</FormLabel>
                             <FormControl>
-                                <Input 
-                                type="time" 
-                                {...field} 
-                                step="1"  // pozwala na sekundy (HH:MM:SS), usuń, jeśli chcesz tylko HH:MM
-                                placeholder="Wybierz godzinę"
+                                <Input
+                                    type="time"
+                                    {...field}
+                                    step="1" // pozwala na sekundy (HH:MM:SS), usuń, jeśli chcesz tylko HH:MM
+                                    placeholder="Wybierz godzinę"
                                 />
                             </FormControl>
                             <FormMessage />

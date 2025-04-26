@@ -30,7 +30,7 @@ export default function WorkersTile() {
         retry: false,
     });
 
-    console.log(data)
+    console.log(data);
 
     if (isLoading) return workersTileSkeleton();
     if (isError) return <div>Error: {error.message}</div>;
@@ -83,7 +83,7 @@ export default function WorkersTile() {
                     </div>
                 </CardContent>
                 <CardFooter className="bg-blue-500/5 py-2 mt-auto px-4">
-                    <Link href="/workers" className="ml-auto"> 
+                    <Link href="/workers" className="ml-auto">
                         <Button variant="ghost" size="sm" className="ml-auto text-blue-600">
                             Manage Staff <ArrowRight className="ml-1 h-4 w-4" />
                         </Button>
@@ -94,37 +94,37 @@ export default function WorkersTile() {
     );
 }
 
-function workersTileSkeleton(){
-    return(
+function workersTileSkeleton() {
+    return (
         <motion.div variants={itemVariants}>
-        <Card className="h-full overflow-hidden flex flex-col p-0">
-          <CardHeader className="bg-blue-500/5 pb-2 pt-4 px-4 m-0 rounded-t-lg">
-            <div className="flex items-center gap-2">
-              <div className="h-5 w-5 rounded-full bg-blue-200 animate-pulse"></div>
-              <div className="h-6 w-24 bg-blue-200 rounded-md animate-pulse"></div>
-            </div>
-            <div className="h-4 w-48 bg-muted rounded-md animate-pulse mt-1"></div>
-          </CardHeader>
-          <CardContent className="pt-4 px-4 flex-1">
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <div className="h-4 w-24 bg-muted rounded-md animate-pulse"></div>
-                <div className="h-7 w-12 bg-muted rounded-md animate-pulse"></div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="h-4 w-24 bg-muted rounded-md animate-pulse"></div>
-                <div className="h-7 w-12 bg-muted rounded-md animate-pulse"></div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="h-4 w-28 bg-muted rounded-md animate-pulse"></div>
-                <div className="h-7 w-12 bg-muted rounded-md animate-pulse"></div>
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter className="bg-blue-500/5 py-2 mt-auto px-4">
-            <div className="h-8 w-32 bg-muted rounded-md animate-pulse ml-auto"></div>
-          </CardFooter>
-        </Card>
-      </motion.div>
-    )
+            <Card className="h-full overflow-hidden flex flex-col p-0">
+                <CardHeader className="bg-blue-500/5 pb-2 pt-4 px-4 m-0 rounded-t-lg">
+                    <div className="flex items-center gap-2">
+                        <div className="h-5 w-5 rounded-full bg-blue-200 animate-pulse"></div>
+                        <div className="h-6 w-24 bg-blue-200 rounded-md animate-pulse"></div>
+                    </div>
+                    <div className="h-4 w-48 bg-muted rounded-md animate-pulse mt-1"></div>
+                </CardHeader>
+                <CardContent className="pt-4 px-4 flex-1">
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                            <div className="h-4 w-24 bg-muted rounded-md animate-pulse"></div>
+                            <div className="h-7 w-12 bg-muted rounded-md animate-pulse"></div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <div className="h-4 w-24 bg-muted rounded-md animate-pulse"></div>
+                            <div className="h-7 w-12 bg-muted rounded-md animate-pulse"></div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <div className="h-4 w-28 bg-muted rounded-md animate-pulse"></div>
+                            <div className="h-7 w-12 bg-muted rounded-md animate-pulse"></div>
+                        </div>
+                    </div>
+                </CardContent>
+                <CardFooter className="bg-blue-500/5 py-2 mt-auto px-4">
+                    <div className="h-8 w-32 bg-muted rounded-md animate-pulse ml-auto"></div>
+                </CardFooter>
+            </Card>
+        </motion.div>
+    );
 }

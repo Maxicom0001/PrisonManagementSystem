@@ -50,19 +50,18 @@ export async function POST(req: NextRequest) {
         const nazwisko = body.lastName;
         const drugie_imie = body.middleName;
         const nazwisko_panienskie_matki = body.mothersMaidenName;
-        const pesel = body.pesel
+        const pesel = body.pesel;
         const miejsce_urodzenia = body.birthplace;
         const data_osadzenia = body.incarcerationDate.split("T")[0]; // Extract the date part from the datetime string
         const id_wyroku = Number(body.sentenceId);
         const id_celi = Number(body.cellId);
 
-
         const query = `INSERT INTO convicts (imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        
+
         const values = [imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi];
 
-        console.log("query: ",  query)
+        console.log("query: ", query);
 
         const [result] = await pool.execute(query, values);
         return new Response(JSON.stringify({ success: true, insertedId: (result as any).insertId }), {
