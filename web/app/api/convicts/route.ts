@@ -1,6 +1,14 @@
 import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
+function formatDateToMySQL(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // miesiące są od 0 do 11
+    const day = date.getDate().toString().padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
 export async function GET(req: NextRequest) {
     const pool = connectDB();
 
@@ -34,23 +42,24 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     const pool = connectDB();
 
+    console.log("route");
     try {
-        const searchParams = req.nextUrl.searchParams;
-        const id = searchParams.get("id");
-        const imie = searchParams.get("imie");
-        const nazwisko = searchParams.get("nazwisko");
-        const drugie_imie = searchParams.get("drugie_imie");
-        const nazwisko_panienskie_matki = searchParams.get("nazwisko_panienskie_matki");
-        const pesel = searchParams.get("pesel");
-        const miejsce_urodzenia = searchParams.get("miejsce_urodzenia");
-        const data_osadzenia = searchParams.get("data_osadzenia");
-        const id_wyroku = searchParams.get("id_wyroku");
-        const id_celi = searchParams.get("id_celi");
-
-        const query = `INSERT INTO 'convicts'('id', 'imie', 'nazwisko', 'drugie_imie', 'nazwisko_panienskie_matki', 'pesel', 'miejsce_urodzenia', 'data_osadzenia', 'id_wyroku', 'id_celi') VALUES ('${id}','${imie}','${nazwisko}','${drugie_imie}','${nazwisko_panienskie_matki}','${pesel}','${miejsce_urodzenia}','${data_osadzenia}','${id_wyroku}','${id_celi}')`;
-
+        const body = await req.json();
+        console.log("json body:", body);
+        const imie = body.firstName;
+        const nazwisko = body.lastName;
+        const drugie_imie = body.middleName;
+        const nazwisko_panienskie_matki = body.mothersMaidenName;
+        const pesel = Number(body.pesel);
+        const miejsce_urodzenia = body.birthplace;
+        const data_osadzenia = formatDateToMySQL(body.incarcerationDate);
+        const id_wyroku = Number(body.sentenceId);
+        const id_celi = Number(body.cellId);
+        console.log("json parsed");
+        const query = `INSERT INTO 'convicts'('id', 'imie', 'nazwisko', 'drugie_imie', 'nazwisko_panienskie_matki', 'pesel', 'miejsce_urodzenia', 'data_osadzenia', 'id_wyroku', 'id_celi') VALUES ('','${imie}','${nazwisko}','${drugie_imie}','${nazwisko_panienskie_matki}',${pesel},'${miejsce_urodzenia}','${data_osadzenia}',${id_wyroku},${id_celi})`;
+        console.log("query ready");
         const [result] = await pool.execute(query);
-
+        console.log("pool executed successfully");
         return new Response(JSON.stringify({ success: true, insertedId: (result as any).insertId }), {
             status: 200,
             headers: {
