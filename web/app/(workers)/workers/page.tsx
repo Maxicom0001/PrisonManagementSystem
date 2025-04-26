@@ -186,19 +186,6 @@ export default function EmployeeDatabase() {
                                                 <TooltipProvider>
                                                     <Tooltip>
                                                         <TooltipTrigger asChild>
-                                                            <Button variant="outline" size="icon" onClick={() => handleAddTask(employee.id)}>
-                                                                <Briefcase className="h-4 w-4" />
-                                                            </Button>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent>
-                                                            <p>Add Task</p>
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                </TooltipProvider>
-
-                                                <TooltipProvider>
-                                                    <Tooltip>
-                                                        <TooltipTrigger asChild>
                                                             <Button variant="outline" size="icon" onClick={() => handleEdit(employee.id)}>
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>
