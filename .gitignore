@@ -42,3 +42,4 @@ yarn-error.log*
 
 web/components/api/connectDB.tsx
 components/api/connectDB.tsx
+web/components/api/connectDB.tsx
