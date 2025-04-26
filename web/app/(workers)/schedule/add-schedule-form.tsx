@@ -55,7 +55,12 @@ export function AddScheduleForm() {
                         <FormItem>
                             <FormLabel>Time</FormLabel>
                             <FormControl>
-                                <Input {...field} placeholder="np. 07:00:00" />
+                                <Input 
+                                type="time" 
+                                {...field} 
+                                step="1"  // pozwala na sekundy (HH:MM:SS), usuń, jeśli chcesz tylko HH:MM
+                                placeholder="Wybierz godzinę"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
