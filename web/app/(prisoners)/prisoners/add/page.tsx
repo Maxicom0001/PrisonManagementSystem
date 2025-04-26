@@ -89,7 +89,7 @@ export default function PrisonerForm() {
         refetch: refetchSentence,
     } = useQuery({
         queryKey: ["sentences"],
-        queryFn: () => fetchData("../api/sentences"),
+        queryFn: () => fetchData("api/sentences"),
         refetchOnWindowFocus: false,
         retry: false,
     });
@@ -102,7 +102,7 @@ export default function PrisonerForm() {
         refetch: refetchCell,
     } = useQuery({
         queryKey: ["cells"],
-        queryFn: () => fetchData("../api/cells"),
+        queryFn: () => fetchData("api/cells"),
         refetchOnWindowFocus: false,
         retry: false,
     });
@@ -113,7 +113,7 @@ export default function PrisonerForm() {
         toast.success("Dodano więźnia", {
             description: `${data.firstName} ${data.lastName} został dodany do systemu.`,
         });
-        await postData("../api/prisoners", data);
+        await postData("../api/convicts", data);
         form.reset();
     };
     return (
