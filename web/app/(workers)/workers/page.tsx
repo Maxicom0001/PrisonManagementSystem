@@ -12,6 +12,7 @@ import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import deleteData from "@/components/api/delete-data";
 
 // Types
 interface Employee {
@@ -68,7 +69,7 @@ const EmployeeCardLoadingPlaceholder = () => {
 export default function EmployeeDatabase() {
     const { setHeader } = useHeader();
 
-    const { data, isLoading, isError, error } = useQuery({
+    const { data, isLoading, isError, error, refetch } = useQuery({
         queryKey: ["workers"],
         queryFn: () => fetchData("api/workers"),
         refetchOnWindowFocus: false,
@@ -106,7 +107,8 @@ export default function EmployeeDatabase() {
 
     // Function to handle deleting
     const handleDelete = (id: number) => {
-        console.log(`Deleting employee with ID: ${id}`);
+        deleteData("api/workers/" + id, {});
+        refetch();
     };
 
     // Function to handle adding a task

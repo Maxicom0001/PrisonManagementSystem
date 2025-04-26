@@ -15,6 +15,7 @@ import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 import Notes from "./notes";
+import deleteData from "@/components/api/delete-data";
 
 // Typy danych
 interface Prisoner {
@@ -109,8 +110,9 @@ export default function PrisonerDatabase() {
 
     // Funkcja do obsługi usuwania
     const handleDelete = (id: number) => {
-        console.log(`Usuwanie więźnia o ID: ${id}`);
+        deleteData("api/convicts/" + id, {});
         setExpandedId(null);
+        refetch();
     };
 
     // Data in selected order is selected from database, and becasue of that we need to change the url
