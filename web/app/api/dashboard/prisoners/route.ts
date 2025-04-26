@@ -6,18 +6,21 @@ export async function GET() {
     interface CountRow {
         total: number;
     }
+
     interface Convict {
         id: string;
         imie: string;
         nazwisko: string;
         data_osadzenia: string;
     }
+
     interface NextReleaseRow {
         id: string;
         imie: string;
         data_osadzenia: string;
         new_date: string;
     }
+
     interface TotalCellsRow {
         totalCells: number;
     }

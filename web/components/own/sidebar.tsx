@@ -1,7 +1,7 @@
 "use client";
 
 import type * as React from "react";
-import { Users, Briefcase, BarChart3, Globe, Moon, Sun, User, Gavel, Clock } from "lucide-react";
+import { BarChart3, Briefcase, Clock, Gavel, Globe, Moon, Sun, User, Users } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
@@ -104,9 +104,9 @@ export default function AppSidebar() {
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
-                
+
                 <SidebarSeparator />
-                    
+
                 <SidebarGroup>
                     <SidebarGroupLabel>Prison</SidebarGroupLabel>
                     <SidebarGroupContent>

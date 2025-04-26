@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Edit, Trash2, Briefcase, UserPlus } from "lucide-react";
+import { Briefcase, Edit, Search, Trash2, UserPlus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -12,6 +12,7 @@ import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+
 // Types
 interface Employee {
     id: number;

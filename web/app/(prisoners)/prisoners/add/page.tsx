@@ -4,13 +4,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, UserCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardContent, CardFooter, CardDescription, CardTitle } from "@/components/ui/card";
-import { UserCircle } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -22,7 +20,6 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import fetchData from "@/components/api/fetch-data";
-import { JobDashboardSkeleton } from "@/app/(workers)/jobs/prison-jobs-skeleton";
 import postData from "@/components/api/post-data";
 
 interface sentenceHandler {
@@ -32,12 +29,14 @@ interface sentenceHandler {
     id_status: number;
     id_grupy: number;
 }
+
 interface cellHandler {
     id: number;
     pojemnosc: number;
     funkcja: string;
     nazwa: string;
 }
+
 const cells = [
     { id: "A1", description: "Cela A1 - pojedyncza" },
     { id: "A2", description: "Cela A2 - pojedyncza" },

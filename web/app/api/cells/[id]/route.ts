@@ -29,6 +29,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         await pool.end();
     }
 }
+
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     const pool = connectDB();
 
@@ -102,7 +103,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     values.push(idToUpdate);
 
     try {
-        const sql = `UPDATE cells SET ${updates.join(", ")} WHERE id = ?`;
+        const sql = `UPDATE cells
+                     SET ${updates.join(", ")}
+                     WHERE id = ?`;
 
         await pool.query(sql, values);
 

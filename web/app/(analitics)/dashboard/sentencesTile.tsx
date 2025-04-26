@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Building, Gavel, ArrowRight, Calendar, AlertCircle } from "lucide-react";
-import { useHeader } from "@/components/providers/header-title-provider";
-import { useEffect } from "react";
+import { ArrowRight, Gavel } from "lucide-react";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";

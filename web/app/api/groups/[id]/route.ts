@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import mysql from "mysql2/promise";
 import connectDB from "@/components/api/connectDB";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
@@ -27,6 +26,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         await pool.end();
     }
 }
+
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     const pool = connectDB();
 

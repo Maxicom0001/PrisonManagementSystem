@@ -8,16 +8,15 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     try {
         const [convict] = await pool.query(
             `
-      SELECT 
-        CASE 
-          WHEN COUNT(c.id_celi) < ce.pojemnosc THEN FALSE
-          ELSE TRUE
-        END AS isEmpty
-      FROM cells ce
-      LEFT JOIN convicts c ON ce.id = c.id_celi
-      WHERE ce.id = ?
-      GROUP BY ce.id, ce.pojemnosc
-      `,
+                SELECT CASE
+                           WHEN COUNT(c.id_celi) < ce.pojemnosc THEN FALSE
+                           ELSE TRUE
+                           END AS isEmpty
+                FROM cells ce
+                         LEFT JOIN convicts c ON ce.id = c.id_celi
+                WHERE ce.id = ?
+                GROUP BY ce.id, ce.pojemnosc
+            `,
             [idToCheck],
         );
 

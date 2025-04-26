@@ -11,7 +11,7 @@ import fetchData from "@/components/api/fetch-data";
 import { Badge } from "@/components/ui/badge";
 import { AddScheduleForm } from "./add-schedule-form";
 import { useHeader } from "@/components/providers/header-title-provider";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 type ScheduleItem = {
     id: number;

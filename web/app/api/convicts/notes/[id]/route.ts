@@ -8,7 +8,10 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     try {
         const [rows] = await pool.query(
-            `SELECT notes.id, notes.content, notes.created_at FROM notes  JOIN convicts ON convicts.id = notes.convict_id WHERE convicts.id = ${id}`,
+            `SELECT notes.id, notes.content, notes.created_at
+             FROM notes
+                      JOIN convicts ON convicts.id = notes.convict_id
+             WHERE convicts.id = ${id}`,
         );
 
         return new Response(JSON.stringify(rows), {

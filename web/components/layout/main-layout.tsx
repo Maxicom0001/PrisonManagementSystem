@@ -1,19 +1,17 @@
 "use client";
 
 import type * as React from "react";
+import { useEffect, useState } from "react";
 import AppSidebar from "@/components/own/sidebar";
 import { HeaderProvider } from "../providers/header-title-provider";
 import Topbar from "../own/topbar";
 import { AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import PageTransitionAnimation from "../own/pageTransition";
 import { Toaster } from "sonner";
 
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface MainLayoutProps {
     children: React.ReactNode;

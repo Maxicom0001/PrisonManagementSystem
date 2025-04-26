@@ -43,7 +43,11 @@ export default function Loading() {
                                     <motion.div
                                         initial={{ opacity: 0.5 }}
                                         animate={{ opacity: 0.8 }}
-                                        transition={{ repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", duration: 1.5 }}
+                                        transition={{
+                                            repeat: Number.POSITIVE_INFINITY,
+                                            repeatType: "reverse",
+                                            duration: 1.5,
+                                        }}
                                     >
                                         <Skeleton className="h-6 w-40" />
                                     </motion.div>
@@ -77,7 +81,12 @@ export default function Loading() {
                                 <motion.div
                                     initial={{ opacity: 0.5 }}
                                     animate={{ opacity: 0.8 }}
-                                    transition={{ repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", duration: 1.5, delay: 0.3 }}
+                                    transition={{
+                                        repeat: Number.POSITIVE_INFINITY,
+                                        repeatType: "reverse",
+                                        duration: 1.5,
+                                        delay: 0.3,
+                                    }}
                                 >
                                     <Skeleton className="h-4 w-24 mt-2" />
                                 </motion.div>
@@ -87,21 +96,36 @@ export default function Loading() {
                                     <motion.div
                                         initial={{ opacity: 0.5 }}
                                         animate={{ opacity: 0.8 }}
-                                        transition={{ repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", duration: 1.5, delay: 0.4 }}
+                                        transition={{
+                                            repeat: Number.POSITIVE_INFINITY,
+                                            repeatType: "reverse",
+                                            duration: 1.5,
+                                            delay: 0.4,
+                                        }}
                                     >
                                         <Skeleton className="h-4 w-full" />
                                     </motion.div>
                                     <motion.div
                                         initial={{ opacity: 0.5 }}
                                         animate={{ opacity: 0.8 }}
-                                        transition={{ repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", duration: 1.5, delay: 0.5 }}
+                                        transition={{
+                                            repeat: Number.POSITIVE_INFINITY,
+                                            repeatType: "reverse",
+                                            duration: 1.5,
+                                            delay: 0.5,
+                                        }}
                                     >
                                         <Skeleton className="h-4 w-full" />
                                     </motion.div>
                                     <motion.div
                                         initial={{ opacity: 0.5 }}
                                         animate={{ opacity: 0.8 }}
-                                        transition={{ repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", duration: 1.5, delay: 0.6 }}
+                                        transition={{
+                                            repeat: Number.POSITIVE_INFINITY,
+                                            repeatType: "reverse",
+                                            duration: 1.5,
+                                            delay: 0.6,
+                                        }}
                                     >
                                         <Skeleton className="h-4 w-3/4" />
                                     </motion.div>
@@ -110,7 +134,12 @@ export default function Loading() {
                                     className="mt-3"
                                     initial={{ opacity: 0.5 }}
                                     animate={{ opacity: 0.8 }}
-                                    transition={{ repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", duration: 1.5, delay: 0.7 }}
+                                    transition={{
+                                        repeat: Number.POSITIVE_INFINITY,
+                                        repeatType: "reverse",
+                                        duration: 1.5,
+                                        delay: 0.7,
+                                    }}
                                 >
                                     <Skeleton className="h-4 w-1/2 mt-3" />
                                 </motion.div>

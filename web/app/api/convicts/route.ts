@@ -17,7 +17,22 @@ export async function GET(req: NextRequest) {
         const order = searchParams.get("order");
         const type = searchParams.get("type");
         const [rows] = await pool.query(
-            `SELECT convicts.id, convicts.imie, convicts.nazwisko, convicts.drugie_imie, convicts.nazwisko_panienskie_matki, convicts.pesel, convicts.miejsce_urodzenia, convicts.data_osadzenia, convicts.id_celi, convicts.data_wyjscia, sentences.czas_trwania AS wyrok, sentences.powod AS powod_wyroku FROM convicts INNER JOIN sentences ON sentences.id = convicts.id_wyroku WHERE data_wyjscia IS NULL ORDER BY ${order == null ? "id" : order} ${type == null ? "asc" : type}`,
+            `SELECT convicts.id,
+                    convicts.imie,
+                    convicts.nazwisko,
+                    convicts.drugie_imie,
+                    convicts.nazwisko_panienskie_matki,
+                    convicts.pesel,
+                    convicts.miejsce_urodzenia,
+                    convicts.data_osadzenia,
+                    convicts.id_celi,
+                    convicts.data_wyjscia,
+                    sentences.czas_trwania AS wyrok,
+                    sentences.powod AS powod_wyroku
+             FROM convicts
+                      INNER JOIN sentences ON sentences.id = convicts.id_wyroku
+             WHERE data_wyjscia IS NULL
+             ORDER BY ${order == null ? "id" : order} ${type == null ? "asc" : type}`,
         );
 
         return new Response(JSON.stringify(rows), {
@@ -56,8 +71,9 @@ export async function POST(req: NextRequest) {
         const id_wyroku = Number(body.sentenceId);
         const id_celi = Number(body.cellId);
 
-        const query = `INSERT INTO convicts (imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `INSERT INTO convicts (imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel,
+                                             miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
         const values = [imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi];
 

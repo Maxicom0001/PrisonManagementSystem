@@ -1,4 +1,3 @@
-import mysql from "mysql2/promise";
 import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
@@ -14,11 +13,13 @@ export async function GET() {
         czas_trwania: string;
         powod: string;
     }
+
     interface shortestSentence {
         convicts_id: number;
         czas_trwania: string;
         powod: string;
     }
+
     interface newestSentence {
         convicts_id: number;
         czas_trwania: string;
@@ -36,9 +37,13 @@ export async function GET() {
             "SELECT convicts.id AS `convicts_id` , sentences.czas_trwania, sentences.powod FROM `convicts` JOIN sentences ON convicts.id_wyroku = sentences.id ORDER BY convicts.data_osadzenia DESC LIMIT 1;",
         );
 
-        const totalActive = await queryOne<{ totalActive: number }>("SELECT COUNT(*) AS totalActive FROM `convicts` WHERE `data_wyjscia` IS NULL;");
+        const totalActive = await queryOne<{
+            totalActive: number;
+        }>("SELECT COUNT(*) AS totalActive FROM `convicts` WHERE `data_wyjscia` IS NULL;");
 
-        const completed = await queryOne<{ completed: number }>("SELECT COUNT(*) AS completed FROM `convicts` WHERE `data_wyjscia` IS NOT NULL;");
+        const completed = await queryOne<{
+            completed: number;
+        }>("SELECT COUNT(*) AS completed FROM `convicts` WHERE `data_wyjscia` IS NOT NULL;");
 
         const response = {
             sentences: {

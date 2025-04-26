@@ -1,18 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Plus, Edit } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { AddJobDialog } from "./add-job-dialog";
-import { EditJobDialog } from "./edit-job-dialog";
 import { useHeader } from "@/components/providers/header-title-provider";
 import { useQuery } from "@tanstack/react-query";
 import fetchData from "@/components/api/fetch-data";
 import { JobDashboardSkeleton } from "./prison-jobs-skeleton";
+
 export interface Job {
     id: number;
     nazwa: string;

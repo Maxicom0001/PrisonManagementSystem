@@ -38,7 +38,8 @@ export async function POST(req: NextRequest) {
         const id_budynku = searchParams.get("id_budynku");
         const id_rodzaj = searchParams.get("id_rodzaj");
 
-        const query = `INSERT INTO 'cells'('id', 'pojemnosc', 'id_budynku', 'id_rodzaj') VALUES ('${id}','${pojemnosc}','${id_budynku}','${id_rodzaj}')`;
+        const query = `INSERT INTO 'cells'('id', 'pojemnosc', 'id_budynku', 'id_rodzaj')
+                       VALUES ('${id}', '${pojemnosc}', '${id_budynku}', '${id_rodzaj}')`;
 
         const [result] = await pool.execute(query);
 

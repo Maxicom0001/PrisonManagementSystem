@@ -1,4 +1,3 @@
-import mysql from "mysql2/promise";
 import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
@@ -43,7 +42,7 @@ export async function POST(req: NextRequest) {
         const id_budynku = body.buildingId;
 
         const query = `INSERT INTO workers (id_zadania, imie, nazwisko, pesel, pensja, id_budynku)
-                       VALUES (?,?,?,?,?,?);`;
+                       VALUES (?, ?, ?, ?, ?, ?);`;
 
         const values = [id_zadania, imie, nazwisko, pesel, pensja, id_budynku];
 

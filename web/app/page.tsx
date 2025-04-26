@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Building2, Users, Briefcase, Settings } from "lucide-react";
+import { Briefcase, Building2, Users } from "lucide-react";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useHeader } from "@/components/providers/header-title-provider";
 import { useEffect } from "react";
-import { PrisonersCounter, WorkersCounter, ActiveJobsCounter } from "../components/own/statistics";
+import { ActiveJobsCounter, PrisonersCounter, WorkersCounter } from "../components/own/statistics";
 import { useTheme } from "next-themes";
 
 export default function PrisonHomepage() {

@@ -1,5 +1,3 @@
-import mysql from "mysql2/promise";
-import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
 export async function GET() {

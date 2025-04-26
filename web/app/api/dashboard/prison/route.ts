@@ -6,12 +6,15 @@ export async function GET() {
     interface avalibleCells {
         unoccupied_spaces: number;
     }
+
     interface totalSpace {
         total_space: number;
     }
+
     interface buildings {
         buildings: number;
     }
+
     interface cellBlocks {
         cellBlocks: number;
     }

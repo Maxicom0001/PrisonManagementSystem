@@ -1,4 +1,3 @@
-import mysql from "mysql2/promise";
 import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
@@ -12,9 +11,11 @@ export async function GET() {
     interface TotalWorkers {
         total: number;
     }
+
     interface TotalJobs {
         jobs: number;
     }
+
     try {
         const total = await queryOne<TotalWorkers>("SELECT COUNT(*) AS `total` FROM `workers`");
         const jobs = await queryOne<TotalJobs>("SELECT COUNT(*) AS `jobs` FROM `jobs` WHERE aktywne = true;");
