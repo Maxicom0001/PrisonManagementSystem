@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
@@ -17,16 +17,16 @@ type Sentence = {
 };
 
 const statusMap: Record<number, { label: string; color: string }> = {
-    1: { label: "Active", color: "bg-green-100 text-green-800" },
-    2: { label: "Suspended", color: "bg-yellow-100 text-yellow-800" },
-    3: { label: "Dismissed", color: "bg-gray-100 text-gray-800" },
-    4: { label: "Appealed", color: "bg-blue-100 text-blue-800" },
+    1: { label: "Active", color: "bg-primary/20 text-primary" },
+    2: { label: "Suspended", color: "bg-accent/20 text-accent-foreground" },
+    3: { label: "Dismissed", color: "bg-muted text-muted-foreground" },
+    4: { label: "Appealed", color: "bg-secondary/20 text-secondary" },
 };
 
 const groupMap: Record<number, { label: string; color: string }> = {
-    1: { label: "Non-violent", color: "bg-blue-100 text-blue-800" },
-    2: { label: "Violent", color: "bg-red-100 text-red-800" },
-    5: { label: "Organized", color: "bg-purple-100 text-purple-800" },
+    1: { label: "Non-violent", color: "bg-chart-2/20 text-chart-2" },
+    2: { label: "Violent", color: "bg-chart-5/20 text-chart-5" },
+    5: { label: "Organized", color: "bg-chart-1/20 text-chart-1" },
 };
 
 function formatDuration(days: number): string {
@@ -133,38 +133,30 @@ const durationVariants = {
     },
 };
 
-
 export default function SentencesPage() {
-
     const { setHeader } = useHeader();
 
-    useEffect( () => {
+    useEffect(() => {
         setHeader([{ title: "Criminal Sentences Database", href: "/sentences" }]);
-    })
+    });
 
-    const {
-        data,
-        isLoading,
-        isError,
-        error,
-    } = useQuery({
+    const { data, isLoading, isError, error } = useQuery({
         queryKey: ["sentences"],
         queryFn: () => fetchData("api/sentences"),
         refetchOnWindowFocus: false,
     });
 
-    if (isLoading) { return <div>Loading...</div>;}
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
-    if (isError) {return <div>Error: {error.message}</div>;}
+    if (isError) {
+        return <div>Error: {error.message}</div>;
+    }
 
     return (
         <div className="container max-w-7xl mx-auto p-6">
-            <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
+            <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6" variants={containerVariants} initial="hidden" animate="visible">
                 {data.map((offense: Sentence) => (
                     <motion.div
                         key={offense.id}
@@ -174,7 +166,7 @@ export default function SentencesPage() {
                             transition: { duration: 0.2 },
                         }}
                     >
-                        <Card className="overflow-hidden h-full">
+                        <Card className="overflow-hidden h-full border-border">
                             <CardHeader className="pb-3">
                                 <div className="flex justify-between items-start">
                                     <motion.div variants={titleVariants}>
@@ -198,10 +190,10 @@ export default function SentencesPage() {
                                 </motion.div>
                             </CardHeader>
                             <CardContent>
-                                <motion.p className="text-gray-700" variants={textVariants}>
+                                <motion.p className="text-foreground" variants={textVariants}>
                                     {generateSentence(offense)}
                                 </motion.p>
-                                <motion.div className="mt-3 text-sm text-gray-500" variants={durationVariants}>
+                                <motion.div className="mt-3 text-sm text-muted-foreground" variants={durationVariants}>
                                     <span className="font-medium">Sentence duration:</span> {formatDuration(offense.czas_trwania)}
                                 </motion.div>
                             </CardContent>
