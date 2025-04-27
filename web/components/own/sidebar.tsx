@@ -39,7 +39,7 @@ export default function AppSidebar() {
                             <Link href="/">
                                 <div className="flex flex-col gap-0.5 leading-none">
                                     <span className="font-semibold">Prison Managment System</span>
-                                    <span className="text-xs text-muted-foreground">v0.1.1</span>
+                                    <span className="text-xs text-muted-foreground">v1.0.0</span>
                                 </div>
                             </Link>
                         </SidebarMenuButton>
