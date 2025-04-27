@@ -13,9 +13,10 @@ import { toast } from "sonner";
 import { useHeader } from "@/components/providers/header-title-provider";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import fetchData from "@/components/api/fetch-data";
 import postData from "@/components/api/post-data";
+import { useRouter } from "next/navigation";
 
 // Przykładowe dane dla wyroków i cel
 interface jobHandler {
@@ -44,6 +45,8 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function PrisonerForm() {
     const { setHeader } = useHeader();
+    const router = useRouter();
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         setHeader([{ title: "Add Prisoner", href: "/prisoners/add" }]);
@@ -96,6 +99,9 @@ export default function PrisonerForm() {
         });
         await postData("../api/workers", data);
         form.reset();
+        queryClient.invalidateQueries({queryKey: ["workers"]});
+        queryClient.invalidateQueries({queryKey: ["dashboard/workers"]});
+        router.push("/workers");
     };
     return (
         <motion.div
