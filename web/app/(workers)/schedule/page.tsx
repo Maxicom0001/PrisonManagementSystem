@@ -32,7 +32,7 @@ export default function Home() {
     const queryClient = useQueryClient();    
 
     useEffect(() => {
-        setHeader([{ title: "Schedule", href: "/schedule" }]);
+        setHeader([{ title: "Schedule Management", href: "/schedule" }]);
     }, []);
 
     const { data, isLoading, isError, error} = useQuery({
@@ -128,19 +128,10 @@ export default function Home() {
             <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
                 <Card className="w-full max-w-4xl mx-auto bg-neutral border-0 shadow-none">
                     <CardHeader>
-                        <CardTitle className="text-2xl">Prison Schedule</CardTitle>
                         <CardDescription>
                             <div className="flex flex-row justify-between items-stretch">
-                                Daily schedule for inmates
                                 <div className="col-span-1">
                                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
-                                        <Button onClick={handleAdd} asChild>
-                                            <div>
-                                                <Edit className="h-4 w-4 mr-2" />
-                                                Add Event
-                                                <span className="sr-only">Edit</span>
-                                            </div>
-                                        </Button>
                                     </motion.div>
                                 </div>
                             </div>
@@ -150,9 +141,17 @@ export default function Home() {
                         <div className="rounded-md border bg-[var(--color-card)] shadow-lg">
                             <div className="grid grid-cols-12 border-b bg-muted/50 p-4 font-medium">
                                 <div className="col-span-2">Time</div>
-                                <div className="col-span-6">Activity</div>
-                                <div className="col-span-3">Status</div>
-                                <div className="col-span-1">Actions</div>
+                                <div className="col-span-5">Activity</div>
+                                <div className="col-span-3 flex justify-center">Status</div>
+                                <div className="col-span-2 flex justify-center">
+                                    <Button onClick={handleAdd} asChild>
+                                            <div>
+                                                <Edit className="h-4 w-4 mr-2" />
+                                                Add Event
+                                                <span className="sr-only">Edit</span>
+                                            </div>
+                                    </Button>
+                                </div>
                             </div>
                             <motion.div variants={containerVariants} initial="hidden" animate="show">
                                 {data?.map((item: ScheduleItem) => (
@@ -162,8 +161,8 @@ export default function Home() {
                                         whileHover={{ backgroundColor: "rgba(0,0,0,0.02)" }}
                                     >
                                         <div className="col-span-2 font-medium">{item.time}</div>
-                                        <div className="col-span-6">{item.title}</div>
-                                        <div className="col-span-3">
+                                        <div className="col-span-5">{item.title}</div>
+                                        <div className="col-span-3 flex justify-center">
                                             <motion.div
                                                 initial={{ scale: 0.9 }}
                                                 animate={{ scale: 1 }}
@@ -189,7 +188,7 @@ export default function Home() {
                                                 </Badge>
                                             </motion.div>
                                         </div>
-                                        <div className="col-span-1">
+                                        <div className="col-span-2 flex justify-center">
                                             <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                                                 <Button variant="ghost" size="icon" onClick={() => handleEdit(item)}>
                                                     <Edit className="h-4 w-4" />
