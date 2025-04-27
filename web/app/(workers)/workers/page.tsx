@@ -14,6 +14,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import deleteData from "@/components/api/delete-data";
 import { toast, ToastT } from "sonner";
+import { useRouter } from "next/navigation";
 
 // Types
 interface Employee {
@@ -23,6 +24,8 @@ interface Employee {
     pesel: string;
     pensja: number;
     zadanie: string;
+    id_zadania: number;
+    id_budynku: number;
 }
 
 // Loading placeholder for employee cards
@@ -70,6 +73,7 @@ const EmployeeCardLoadingPlaceholder = () => {
 export default function EmployeeDatabase() {
     const { setHeader } = useHeader();
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const { data, isLoading, isError, error, refetch } = useQuery({
         staleTime: 0,
@@ -103,9 +107,9 @@ export default function EmployeeDatabase() {
     };
 
     // Function to handle editing
-    const handleEdit = (id: number) => {
-        console.log(`Editing employee with ID: ${id}`);
-        // Add your logic for editing
+    const handleEdit = (employee: Employee) => {
+        console.log(`Editing employee with ID: ${employee.id}`);
+        router.push("/workers/edit?id=" + employee.id + "&firstName=" + employee.imie + "&lastName=" + employee.nazwisko + "&pesel=" + employee.pesel + "&pensja=" + employee.pensja + "&buildingId=" + employee.id_budynku + "&jobId=" + employee.id_zadania);
     };
 
     // Function to handle deleting
@@ -195,7 +199,7 @@ export default function EmployeeDatabase() {
                                                 <TooltipProvider>
                                                     <Tooltip>
                                                         <TooltipTrigger asChild>
-                                                            <Button variant="outline" size="icon" onClick={() => handleEdit(employee.id)}>
+                                                            <Button variant="outline" size="icon" onClick={() => handleEdit(employee)}>
                                                                 <Edit className="h-4 w-4" />
                                                             </Button>
                                                         </TooltipTrigger>
