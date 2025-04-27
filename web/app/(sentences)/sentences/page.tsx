@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
+import { SentencesSkeleton } from "./loading-skeleton";
 
 type Sentence = {
     id: number;
@@ -147,7 +148,7 @@ export default function SentencesPage() {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <SentencesSkeleton />;
     }
 
     if (isError) {
