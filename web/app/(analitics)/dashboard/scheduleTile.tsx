@@ -21,10 +21,9 @@ const itemVariants = {
 };
 
 const badgeVariant = (time: string) => {
-    const currentTime = new Date().getHours();
+    const currentTime = Number(new Date().getHours().toString());  // Get the current hour as a number
 
-    const scheduleTime = new Date(`1970-01-01T${time}Z`).getHours() - 1; // Convert to UTC hours
-    console.log("Current time:", currentTime, "Schedule time:", scheduleTime);
+    const scheduleTime = Number(time.split(":")[0])  // Get the hour part of the time number
 
     if (scheduleTime == currentTime) {
         return "In progress";
