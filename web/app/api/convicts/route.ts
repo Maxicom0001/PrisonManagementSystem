@@ -1,14 +1,6 @@
 import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
-function formatDateToMySQL(date: Date): string {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // miesiące są od 0 do 11
-    const day = date.getDate().toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-}
-
 export async function GET(req: NextRequest) {
     const pool = connectDB();
 
