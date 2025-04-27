@@ -155,8 +155,8 @@ export default function PrisonerForm() {
                         <UserCircle className="w-28 h-28 text-gray-400" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">New Prisoner</h1>
-                        <p className="text-muted-foreground">Prisoner ID: 12345</p>
+                        <h1 className="text-2xl font-bold tracking-tight">{prisoner.firstName} {prisoner.lastName}</h1>
+                        <p className="text-muted-foreground">Prisoner ID: {prisoner.id}</p>
                     </div>
                 </CardHeader>
                 <CardContent className="pt-6">
