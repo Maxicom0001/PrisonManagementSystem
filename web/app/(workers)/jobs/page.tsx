@@ -92,10 +92,6 @@ export default function JobDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
             >
-                <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Job Management</h1>
-                    <p className="text-muted-foreground mt-1">Manage and track all job positions in your organization</p>
-                </div>
                 {/* <Button onClick={() => setIsAddDialogOpen(true)} className="flex items-center mt-5">
           <Plus className="size-4" />
           Add Job
