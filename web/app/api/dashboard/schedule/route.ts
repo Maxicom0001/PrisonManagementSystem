@@ -15,7 +15,7 @@ export async function GET() {
     }
 
     try {
-        const schedule = await queryAll<schedule>("SELECT schedule.time, title from `schedule`");
+        const schedule = await queryAll<schedule>("SELECT schedule.time, title from `schedule` ORDER BY time ASC");
 
         const response = {
             schedule: schedule,
