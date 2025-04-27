@@ -49,7 +49,7 @@ export default function PrisonerForm() {
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        setHeader([{ title: "Add Prisoner", href: "/prisoners/add" }]);
+        setHeader([{ title: "Add Worker", href: "/workers/add" }]);
     }, []);
 
     const form = useForm<FormValues>({
