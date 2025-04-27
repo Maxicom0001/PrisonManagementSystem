@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import deleteData from "@/components/api/delete-data";
 import { toast, ToastT } from "sonner";
@@ -69,6 +69,7 @@ const EmployeeCardLoadingPlaceholder = () => {
 
 export default function EmployeeDatabase() {
     const { setHeader } = useHeader();
+    const queryClient = useQueryClient();
 
     const { data, isLoading, isError, error, refetch } = useQuery({
         staleTime: 0,
@@ -114,7 +115,9 @@ export default function EmployeeDatabase() {
         toast.success("Employee deleted successfully", {
             description: "The employee has been removed from the database.",
         });
-        refetch();
+        queryClient.invalidateQueries({ queryKey: ["workers"] });
+        queryClient.refetchQueries({ queryKey: ["workers"] });
+        
     };
 
     // Function to handle adding a task
