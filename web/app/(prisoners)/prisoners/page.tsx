@@ -169,7 +169,7 @@ export default function PrisonerDatabase() {
                         <Table>
                             <TableHeader>
                                 <TableRow className="bg-[var(--color-muted)]/50">
-                                    <TableHead className="w-[80px] cursor-pointer">
+                                    <TableHead className="w-[80px] cursor-pointer p-4">
                                         <div className="flex items-center">
                                             ID
                                             <ArrowUpDown className="ml-1 h-4 w-4" onClick={() => handleOrderChange("id")} />
@@ -210,7 +210,7 @@ export default function PrisonerDatabase() {
                                                 expandedId === prisoner.id ? "border-b-0 hover:bg-muted/50" : "hover:bg-muted/50 bg-[var(--color-card)]/50"
                                             }
                                         >
-                                            <TableCell>{prisoner.id}</TableCell>
+                                            <TableCell className="p-4">{prisoner.id}</TableCell>
                                             <TableCell>{prisoner.imie}</TableCell>
                                             <TableCell>{prisoner.nazwisko}</TableCell>
                                             <TableCell>{formatDate(prisoner.data_osadzenia)}</TableCell>
@@ -343,7 +343,7 @@ const TableLoadingPlaceholder = () => {
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-[80px]">
+                        <TableHead className="w-[80px] p-6">
                             <Skeleton className="h-4 w-10" />
                         </TableHead>
                         <TableHead>
@@ -366,7 +366,7 @@ const TableLoadingPlaceholder = () => {
                         .fill(0)
                         .map((_, index) => (
                             <TableRow key={index}>
-                                <TableCell>
+                                <TableCell className="p-6">
                                     <Skeleton className="h-4 w-8" />
                                 </TableCell>
                                 <TableCell>
