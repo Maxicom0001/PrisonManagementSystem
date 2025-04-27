@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { EditScheduleForm } from "./edit-schedule-form";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import fetchData from "@/components/api/fetch-data";
 import { Badge } from "@/components/ui/badge";
 import { AddScheduleForm } from "./add-schedule-form";
@@ -14,6 +14,8 @@ import { useHeader } from "@/components/providers/header-title-provider";
 import { AnimatePresence, motion } from "framer-motion";
 import deleteData from "@/components/api/delete-data";
 import { toast, ToastT } from "sonner";
+import patchData from "@/components/api/patch-data";
+import postData from "@/components/api/post-data";
 
 type ScheduleItem = {
     id: number;
@@ -27,12 +29,13 @@ export default function Home() {
     const [openAdd, setOpenAdd] = useState(false);
 
     const { setHeader } = useHeader();
+    const queryClient = useQueryClient();    
+
     useEffect(() => {
         setHeader([{ title: "Schedule", href: "/schedule" }]);
     }, []);
 
-    const { data, isLoading, isError, error, refetch } = useQuery({
-        staleTime: 0,
+    const { data, isLoading, isError, error} = useQuery({
         queryKey: ["schedule"],
         queryFn: () => fetchData("api/schedule"),
         refetchOnWindowFocus: false,
@@ -50,25 +53,47 @@ export default function Home() {
         setOpenAdd(true);
     };
 
-    const handleSave = (updatedItem: ScheduleItem) => {
+    const handleSaveAdd = async (item: {title: string, time: string}) => {
         setOpenAdd(false);
+        setSelectedItem({id: 0, title: item.title, time: item.time});
+        postData("api/schedule", item);
+        toast.success("Schedule entry added", {
+            description: "Schedule entry has been added successfully.",
+        } as ToastT);
+        await queryClient.invalidateQueries({queryKey: ["schedule"]});
+        await queryClient.invalidateQueries({queryKey: ["dashboard/schedule"]});
+        await queryClient.refetchQueries({queryKey: ["schedule"]});
+    }
+
+    const handleSaveEdit =  async (item: ScheduleItem) => {
+        setOpenEdit(false);
+        setSelectedItem(null);
+        patchData("api/schedule/" + item.id, item)
+        toast.success("Schedule entry updated", {
+            description: "Schedule entry has been updated successfully.",
+        } as ToastT);
+        await queryClient.invalidateQueries({queryKey: ["schedule"]});
+        await queryClient.invalidateQueries({queryKey: ["dashboard/schedule"]});
+        await queryClient.refetchQueries({queryKey: ["schedule"]});
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: number) => {
         deleteData("api/schedule/" + id, {});
         setOpenEdit(false);
-        refetch();
         toast.success("Schedule entry deleted", {
             description: "Schedule entry has been deleted successfully.",
         } as ToastT);
-        refetch();
+        await queryClient.invalidateQueries({queryKey: ["schedule"]});
+        await queryClient.invalidateQueries({queryKey: ["dashboard/schedule"]});
+        await queryClient.refetchQueries({queryKey: ["schedule"]});
+
     };
 
     const badgeVariant = (time: string) => {
-        const currentTime = new Date().getHours();
+        const currentTime = Number(new Date().getHours().toString());  // Get the current hour as a number
 
-        const scheduleTime = new Date(`1970-01-01T${time}Z`).getHours() - 1; // Convert to UTC hours
-
+        const scheduleTime = Number(time.split(":")[0])  // Get the hour part of the time number
+        
         if (scheduleTime == currentTime) {
             return "In progress";
         } else if (scheduleTime > currentTime) {
@@ -188,7 +213,7 @@ export default function Home() {
                                 <DialogTitle>Edit schedule entry</DialogTitle>
                                 <DialogDescription>Change activity details in the schedule</DialogDescription>
                             </DialogHeader>
-                            {selectedItem ? <EditScheduleForm item={selectedItem} onSave={handleSave} onDelete={handleDelete} /> : null}
+                            {selectedItem ? <EditScheduleForm item={selectedItem} onSave={handleSaveEdit} onDelete={handleDelete} /> : null}
                         </DialogContent>
                     </Dialog>
                 )}
@@ -202,7 +227,7 @@ export default function Home() {
                                 <DialogTitle>Add new schedule entry</DialogTitle>
                                 <DialogDescription>Add activity for prison</DialogDescription>
                             </DialogHeader>
-                            <AddScheduleForm />
+                            <AddScheduleForm onSave={handleSaveAdd} />
                         </DialogContent>
                     </Dialog>
                 )}

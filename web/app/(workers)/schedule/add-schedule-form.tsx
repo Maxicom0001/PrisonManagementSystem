@@ -11,11 +11,10 @@ type ScheduleItem = {
 };
 
 interface EditScheduleFormProps {
-    item?: ScheduleItem;
     onSave: (updatedItem: ScheduleItem) => void;
 }
 
-export function AddScheduleForm() {
+export function AddScheduleForm({ onSave } : EditScheduleFormProps) {
     // Check if item exists, if not use a default empty item
     const defaultItem: ScheduleItem = {
         time: "",
@@ -38,10 +37,6 @@ export function AddScheduleForm() {
         onSave(updatedItem);
     };
 
-    const onSave = (updatedItem: ScheduleItem) => {
-        // Handle the save logic here, e.g., send to API or update state
-        console.log("Saved item:", updatedItem);
-    };
 
     return (
         <Form {...form}>

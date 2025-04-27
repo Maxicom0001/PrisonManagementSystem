@@ -78,7 +78,7 @@ export function EditScheduleForm({ item, onSave, onDelete }: EditScheduleFormPro
                     )}
                 />
                 <div className="flex justify-end space-x-2">
-                    <Button variant={"destructive"} onClick={() => onDelete(item?.id || 0)}>
+                    <Button type="button" variant={"destructive"} onClick={() => onDelete(item?.id || 0)}>
                         Delete
                     </Button>
                     <Button type="submit">Save changes</Button>
