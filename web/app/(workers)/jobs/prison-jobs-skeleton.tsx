@@ -11,14 +11,13 @@ export function JobDashboardSkeleton() {
                     <Skeleton className="h-8 w-48" />
                     <Skeleton className="h-4 w-64 mt-2" />
                 </div>
-                <Skeleton className="h-10 w-28" />
             </div>
 
             {/* Summary Bar Skeleton */}
             <div className="grid grid-cols-3 gap-4">
                 {[1, 2, 3].map((i) => (
                     <Card key={i}>
-                        <CardContent className="pt-6">
+                        <CardContent>
                             <Skeleton className="h-4 w-24 mb-2" />
                             <Skeleton className="h-8 w-12" />
                         </CardContent>
@@ -35,11 +34,8 @@ export function JobDashboardSkeleton() {
                                 <TableHead>
                                     <Skeleton className="h-4 w-24" />
                                 </TableHead>
-                                <TableHead>
+                                <TableHead className="flex justify-center">
                                     <Skeleton className="h-4 w-16" />
-                                </TableHead>
-                                <TableHead className="text-right">
-                                    <Skeleton className="h-4 w-16 ml-auto" />
                                 </TableHead>
                             </TableRow>
                         </TableHeader>
@@ -49,11 +45,8 @@ export function JobDashboardSkeleton() {
                                     <TableCell>
                                         <Skeleton className="h-4 w-40" />
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className="flex justify-center">
                                         <Skeleton className="h-6 w-16 rounded-full" />
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        <Skeleton className="h-8 w-8 rounded-full ml-auto" />
                                     </TableCell>
                                 </TableRow>
                             ))}

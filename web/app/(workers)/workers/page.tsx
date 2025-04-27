@@ -60,7 +60,6 @@ const EmployeeCardLoadingPlaceholder = () => {
                                 <div className="flex md:flex-col justify-end space-x-2 md:space-x-0 md:space-y-2 mt-4 md:mt-0 md:w-1/5 md:items-end">
                                     <Skeleton className="h-10 w-10 rounded-md" />
                                     <Skeleton className="h-10 w-10 rounded-md" />
-                                    <Skeleton className="h-10 w-10 rounded-md" />
                                 </div>
                             </div>
                         </CardContent>
