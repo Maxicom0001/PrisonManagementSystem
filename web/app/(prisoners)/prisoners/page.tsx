@@ -65,7 +65,6 @@ export default function PrisonerDatabase() {
     const [searchTerm, setSearchTerm] = useState("");
     const { setHeader } = useHeader();
     const [url, setUrl] = useState("api/convicts?order=id&type=asc");
-    const [queryKey, setQueryKey] = useState("convicts/id/asc");
 
     useEffect(() => {
         setHeader([{ title: "Prisoners Management", href: "/prisoners" }]);
@@ -73,7 +72,7 @@ export default function PrisonerDatabase() {
 
     const { data, isLoading, isError, error, refetch } = useQuery<Prisoner[]>({
         staleTime: 0,
-        queryKey: [queryKey],
+        queryKey: ["prisoners"],
         queryFn: () => fetchData(url),
         refetchOnWindowFocus: false,
         retry: false,
@@ -125,7 +124,6 @@ export default function PrisonerDatabase() {
     const handleOrderChange = (column: string) => {
         const newUrl = "api/convicts?order=" + column + "&type=" + (url.includes("asc") ? "desc" : "asc");
         setUrl(newUrl);
-        setQueryKey("convicts/" + column + "/" + (url.includes("asc") ? "desc" : "asc"));
     };
 
     if (isError) return <div>Error: {error.message}</div>;
