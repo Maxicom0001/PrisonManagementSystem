@@ -13,10 +13,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Notes from "./notes";
 import deleteData from "@/components/api/delete-data";
 import { toast, ToastT } from "sonner";
+import { useRouter } from "next/navigation";
 
 // Typy danych
 interface Prisoner {
@@ -32,6 +33,7 @@ interface Prisoner {
     powod_wyroku: string;
     id_celi: string;
     data_wyjscia: string | null;
+    id_wyroku: number;
 }
 
 interface Note {
@@ -65,13 +67,14 @@ export default function PrisonerDatabase() {
     const [searchTerm, setSearchTerm] = useState("");
     const { setHeader } = useHeader();
     const [url, setUrl] = useState("api/convicts?order=id&type=asc");
+    const router = useRouter();
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         setHeader([{ title: "Prisoners Management", href: "/prisoners" }]);
     }, []);
 
     const { data, isLoading, isError, error, refetch } = useQuery<Prisoner[]>({
-        staleTime: 0,
         queryKey: ["prisoners"],
         queryFn: () => fetchData(url),
         refetchOnWindowFocus: false,
@@ -104,20 +107,21 @@ export default function PrisonerDatabase() {
     };
 
     // Funkcja do obsługi edycji
-    const handleEdit = (id: number) => {
-        console.log(`Edytowanie więźnia o ID: ${id}`);
-        // Tutaj można dodać logikę edycji
+    const handleEdit = (prisoner: Prisoner) => {
+        console.log(`Edytowanie więźnia o ID: ${prisoner.id}`);
+        router.push("/prisoners/edit/?id=" + prisoner.id + "&firstName=" + prisoner.imie + "&lastName=" + prisoner.nazwisko + "&middleName=" + prisoner.drugieImie + "&mothersMaidenName=" + prisoner.nazwisko_panienskie_matki + "&pesel=" + prisoner.pesel + "&birthplace=" + prisoner.miejsce_urodzenia + "&incarcerationDate=" + prisoner.data_osadzenia + "&sentenceId=" + prisoner.id_wyroku + "&cellId=" + prisoner.id_celi);
     };
 
     // Funkcja do obsługi usuwania
     const handleDelete = (id: number) => {
         deleteData("api/convicts/" + id, {});
         setExpandedId(null);
-        refetch();
         toast.success("Prisoner deleted successfully", {
             description: "The prisoner has been successfully deleted from the database.",
         });
-        refetch();
+        queryClient.invalidateQueries({queryKey: ["prisoners"]});
+        queryClient.invalidateQueries({queryKey: ["dashboard/prisoners"]});
+        queryClient.refetchQueries({queryKey: ["prisoners"]});
     };
 
     // Data in selected order is selected from database, and becasue of that we need to change the url
@@ -297,7 +301,7 @@ export default function PrisonerDatabase() {
 
                                                                         {/* Przyciski akcji */}
                                                                         <div className="flex justify-end space-x-2 mt-4">
-                                                                            <Button variant="outline" size="sm" onClick={() => handleEdit(prisoner.id)}>
+                                                                            <Button variant="outline" size="sm" onClick={() => handleEdit(prisoner)}>
                                                                                 <Edit className="h-4 w-4 mr-2" />
                                                                                 Update
                                                                             </Button>

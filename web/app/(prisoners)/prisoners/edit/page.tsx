@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { format } from "date-fns";
-import { pl } from "date-fns/locale";
+import { id, pl } from "date-fns/locale";
 import { CalendarIcon, UserCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -20,8 +20,8 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import fetchData from "@/components/api/fetch-data";
-import postData from "@/components/api/post-data";
-import { useRouter } from "next/navigation";
+import patchData from "@/components/api/patch-data";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface sentenceHandler {
     id: number;
@@ -48,6 +48,7 @@ const cells = [
 
 // Schemat walidacji formularza
 const formSchema = z.object({
+    id: z.string().optional(),
     firstName: z.string().min(2, { message: "Imię musi mieć co najmniej 2 znaki" }),
     lastName: z.string().min(2, { message: "Nazwisko musi mieć co najmniej 2 znaki" }),
     middleName: z.string().optional(),
@@ -65,21 +66,40 @@ export default function PrisonerForm() {
     const { setHeader } = useHeader();
     const router = useRouter();
     const queryClient = useQueryClient();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
-        setHeader([{ title: "Add Prisoner", href: "/prisoners/add" }]);
+        setHeader([{ title: "Edit Prisoner", href: "/prisoners/add" }]);
     }, []);
+
+
+    const prisoner = {
+        id: searchParams.get("id"),
+        firstName: searchParams.get("firstName"),
+        lastName: searchParams.get("lastName"),
+        middleName: searchParams.get("middleName") == "undefined" ? "" : searchParams.get("middleName"),
+        mothersMaidenName: searchParams.get("mothersMaidenName"),
+        pesel: searchParams.get("pesel"),
+        birthplace: searchParams.get("birthplace"),
+        incarcerationDate: new Date(searchParams.get("incarcerationDate") as string),
+        sentenceId: searchParams.get("sentenceId"),
+        cellId: searchParams.get("cellId"),
+    }
+
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            firstName: "",
-            lastName: "",
-            middleName: "",
-            mothersMaidenName: "",
-            pesel: "",
-            birthplace: "",
-            incarcerationDate: new Date(),
+            id: prisoner.id || "",
+            firstName: prisoner.firstName || "",
+            lastName:  prisoner.lastName || "",
+            middleName: prisoner.middleName || "",
+            mothersMaidenName:  prisoner.mothersMaidenName || "",
+            pesel: prisoner.pesel || "",
+            birthplace: prisoner.birthplace || "",
+            incarcerationDate: prisoner.incarcerationDate || new Date(),
+            sentenceId: prisoner.sentenceId || "",
+            cellId: prisoner.cellId || "",
         },
     });
 
@@ -112,10 +132,10 @@ export default function PrisonerForm() {
     const onSubmit = async (data: FormValues) => {
         // W rzeczywistej aplikacji tutaj byłoby wysłanie danych do API
         console.log("Dane więźnia:", data);
-        toast.success("Added prisoner", {
-            description: `${data.firstName} ${data.lastName} added.`,
+        toast.success("Updated prisoner", {
+            description: `${data.firstName} ${data.lastName} updated.`,
         });
-        await postData("../api/convicts", data);
+        await patchData("../api/convicts", data);
         form.reset();
         queryClient.invalidateQueries({ queryKey: ["prisoners"]});
         queryClient.invalidateQueries({ queryKey: ["dashboard/prisoners"]});
@@ -320,7 +340,7 @@ export default function PrisonerForm() {
                             </div>
                             <div className="flex justify-end">
                                 <Button type="submit" className="w-full md:w-auto">
-                                    Add prisoner
+                                    Update prisoner
                                 </Button>
                             </div>
                         </form>
