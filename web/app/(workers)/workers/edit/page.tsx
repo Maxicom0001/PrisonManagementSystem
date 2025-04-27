@@ -65,7 +65,7 @@ export default function PrisonerForm() {
     console.log(worker);
 
     useEffect(() => {
-        setHeader([{ title: "Add Prisoner", href: "/prisoners/add" }]);
+        setHeader([{ title: "Edit Prisoner", href: "/prisoners/edit" }]);
     }, []);
 
     const form = useForm<FormValues>({
@@ -254,7 +254,7 @@ export default function PrisonerForm() {
                                             <FormLabel>Salary</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Wprowadź pensję"
+                                                    placeholder="Salary"
                                                     maxLength={6}
                                                     {...field}
                                                     value={field.value ?? ""} // zabezpieczenie na undefined

@@ -133,9 +133,9 @@ export default function PrisonerForm() {
                                         name="firstName"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Imię</FormLabel>
+                                                <FormLabel>Firstname</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Wprowadź imię" {...field} />
+                                                    <Input placeholder="Firstname" {...field} />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -149,9 +149,9 @@ export default function PrisonerForm() {
                                     name="lastName"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Nazwisko</FormLabel>
+                                            <FormLabel>Lastname</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="Wprowadź nazwisko" {...field} />
+                                                <Input placeholder="Lastname" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -167,7 +167,7 @@ export default function PrisonerForm() {
                                             <FormLabel>PESEL</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Wprowadź PESEL"
+                                                    placeholder="PESEL"
                                                     maxLength={11}
                                                     {...field}
                                                     onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
@@ -184,11 +184,11 @@ export default function PrisonerForm() {
                                     name="jobId"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Praca</FormLabel>
+                                            <FormLabel>Job</FormLabel>
                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                 <FormControl>
                                                     <SelectTrigger>
-                                                        <SelectValue placeholder="Wybierz pracę" />
+                                                        <SelectValue placeholder="Select Job" />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
@@ -210,11 +210,11 @@ export default function PrisonerForm() {
                                     name="buildingId"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>ID celi</FormLabel>
+                                            <FormLabel>Building</FormLabel>
                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                 <FormControl>
                                                     <SelectTrigger>
-                                                        <SelectValue placeholder="Wybierz budynek" />
+                                                        <SelectValue placeholder="Select building" />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
@@ -236,10 +236,10 @@ export default function PrisonerForm() {
                                     name="pensja"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Pensja</FormLabel>
+                                            <FormLabel>Salary</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder="Wprowadź pensję"
+                                                    placeholder="Salary"
                                                     maxLength={6}
                                                     {...field}
                                                     value={field.value ?? ""} // zabezpieczenie na undefined
@@ -255,7 +255,7 @@ export default function PrisonerForm() {
                             </div>
                             <div className="flex justify-end">
                                 <Button type="submit" className="w-full md:w-auto">
-                                    Dodaj Pracownika
+                                    Add worker
                                 </Button>
                             </div>
                         </form>

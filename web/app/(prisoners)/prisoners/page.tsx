@@ -232,7 +232,7 @@ export default function PrisonerDatabase() {
                                                             className="overflow-hidden"
                                                         >
                                                             <div className="bg-muted/50 p-4">
-                                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                                     {/* Lewa kolumna - dane osobowe */}
                                                                     <div className="space-y-4 md:col-span-2">
                                                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -307,9 +307,6 @@ export default function PrisonerDatabase() {
                                                                             </Button>
                                                                         </div>
                                                                     </div>
-
-                                                                    {/* Prawa kolumna - notatki */}
-                                                                    <Notes prisoner={{ id: prisoner.id }}></Notes>
                                                                 </div>
                                                             </div>
                                                         </motion.div>
