@@ -2,15 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Building2, Users, Briefcase, Settings } from "lucide-react";
+import { Briefcase, Building2, Users } from "lucide-react";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useHeader } from "@/components/providers/header-title-provider";
 import { useEffect } from "react";
-import { PrisonersCounter, WorkersCounter, ActiveJobsCounter } from "../components/own/statistics";
+import { ActiveJobsCounter, PrisonersCounter, WorkersCounter } from "../components/own/statistics";
+import { useTheme } from "next-themes";
 
 export default function PrisonHomepage() {
     const { setHeader } = useHeader();
+
+    const { theme } = useTheme();
+
+    console.log(theme);
 
     useEffect(() => {
         setHeader([{ title: "Home", href: "/" }]);
@@ -87,15 +92,17 @@ export default function PrisonHomepage() {
                     </motion.p>
                 </div>
                 <motion.div
-                    className="bg-muted rounded-lg overflow-hidden h-[300px] relative"
+                    className="rounded-lg overflow-hidden h-[300px] relative"
                     variants={itemVariants}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <Image src="/placeholder.svg?height=600&width=800" alt="Prison layout" fill className="object-cover w-full" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                        <p className="text-white font-medium text-lg">Prison Layout</p>
-                    </div>
+                    <Image
+                        src={"/images/prison-layout.png"}
+                        alt="Prison layout"
+                        fill
+                        className={theme == "dark" ? "w-full h-auto object-contain invert" : "w-full h-auto object-contain"}
+                    />
                 </motion.div>
             </motion.div>
 

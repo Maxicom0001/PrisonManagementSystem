@@ -2,22 +2,21 @@ import connectDB from "@/components/api/connectDB";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToCheck = params.id;
     try {
         const [convict] = await pool.query(
             `
-      SELECT 
-        CASE 
-          WHEN COUNT(c.id_celi) < ce.pojemnosc THEN FALSE
-          ELSE TRUE
-        END AS isEmpty
-      FROM cells ce
-      LEFT JOIN convicts c ON ce.id = c.id_celi
-      WHERE ce.id = ?
-      GROUP BY ce.id, ce.pojemnosc
-      `,
+                SELECT CASE
+                           WHEN COUNT(c.id_celi) < ce.pojemnosc THEN FALSE
+                           ELSE TRUE
+                           END AS isEmpty
+                FROM cells ce
+                         LEFT JOIN convicts c ON ce.id = c.id_celi
+                WHERE ce.id = ?
+                GROUP BY ce.id, ce.pojemnosc
+            `,
             [idToCheck],
         );
 

@@ -1,7 +1,7 @@
 import connectDB from "@/components/api/connectDB";
 
 export async function GET() {
-    const pool = connectDB()
+    const pool = connectDB();
 
     try {
         const [totalActive] = await pool.query("SELECT COUNT(*) FROM jobs WHERE aktywne = true;");

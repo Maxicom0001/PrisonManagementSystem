@@ -5,7 +5,6 @@ import { ScrollingLoader } from "@/components/own/scrolling-loader";
 import { motion } from "framer-motion";
 import fetchData from "@/components/api/fetch-data";
 
-
 export function PrisonersCounter() {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["dashboard/prisoners"],
@@ -59,4 +58,3 @@ export function ActiveJobsCounter() {
         </motion.p>
     );
 }
-

@@ -39,3 +39,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+web/components/api/connectDB.tsx
+components/api/connectDB.tsx
+web/components/api/connectDB.tsx

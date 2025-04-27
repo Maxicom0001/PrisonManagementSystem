@@ -2,7 +2,7 @@ import connectDB from "@/components/api/connectDB";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToCheck = params.id;
     try {
@@ -29,8 +29,9 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         await pool.end();
     }
 }
+
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToDelete = params.id;
     try {
@@ -67,7 +68,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 }
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToUpdate = params.id;
     const body = await request.json();
@@ -102,7 +103,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     values.push(idToUpdate);
 
     try {
-        const sql = `UPDATE cells SET ${updates.join(", ")} WHERE id = ?`;
+        const sql = `UPDATE cells
+                     SET ${updates.join(", ")}
+                     WHERE id = ?`;
 
         await pool.query(sql, values);
 

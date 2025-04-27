@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToCheck = params.id;
     try {
@@ -26,8 +26,9 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         await pool.end();
     }
 }
+
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToDelete = params.id;
     try {
@@ -52,14 +53,13 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     }
 }
 
-
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToUpdate = params.id;
-    const body = await request.json(); 
+    const body = await request.json();
 
-    const {imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi   } = body;
+    const { imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi } = body;
 
     const updates = [];
     const values = [];
@@ -113,7 +113,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     values.push(idToUpdate);
 
     try {
-        const sql = `UPDATE convicts SET ${updates.join(", ")} WHERE id = ?`;
+        const sql = `UPDATE convicts
+                     SET ${updates.join(", ")}
+                     WHERE id = ?`;
 
         await pool.query(sql, values);
 
@@ -135,5 +137,3 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
         await pool.end();
     }
 }
-
-

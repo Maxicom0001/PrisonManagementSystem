@@ -1,4 +1,3 @@
-import mysql from "mysql2/promise";
 import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
@@ -39,7 +38,8 @@ export async function POST(req: NextRequest) {
         const id = searchParams.get("id");
         const nazwa = searchParams.get("nazwa");
 
-        const query = `INSERT INTO 'statuses'('id', 'nazwa') VALUES ('${id}','${nazwa}')`;
+        const query = `INSERT INTO 'statuses'('id', 'nazwa')
+                       VALUES ('${id}', '${nazwa}')`;
 
         const [result] = await pool.execute(query);
 

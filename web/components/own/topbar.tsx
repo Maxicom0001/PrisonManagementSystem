@@ -31,7 +31,11 @@ export default function Topbar() {
                               stiffness: 200,
                               damping: 12,
                           }}
-                          exit={{ opacity: 0, x: -20, transition: { delay: 0.1 * header.length - 0.1 * index, duration: 0.1 } }}
+                          exit={{
+                              opacity: 0,
+                              x: -20,
+                              transition: { delay: 0.1 * header.length - 0.1 * index, duration: 0.1 },
+                          }}
                           className="opacity-0 text-xl"
                       >
                           <Link href={item.href}>

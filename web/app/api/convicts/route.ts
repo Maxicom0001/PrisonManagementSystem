@@ -2,13 +2,31 @@ import { NextRequest } from "next/server";
 import connectDB from "@/components/api/connectDB";
 
 export async function GET(req: NextRequest) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     try {
-        const searchParams = req.nextUrl.searchParams
-        const order = searchParams.get('order')
-        const type = searchParams.get('type') 
-        const [rows] = await pool.query(`SELECT convicts.id, convicts.imie, convicts.nazwisko, convicts.drugie_imie, convicts.nazwisko_panienskie_matki, convicts.pesel, convicts.miejsce_urodzenia, convicts.data_osadzenia, convicts.id_celi, convicts.data_wyjscia, sentences.czas_trwania AS wyrok, sentences.powod AS powod_wyroku FROM convicts INNER JOIN sentences ON sentences.id = convicts.id_wyroku WHERE data_wyjscia IS NULL ORDER BY ${order} ${type}`);
+        const searchParams = req.nextUrl.searchParams;
+        const order = searchParams.get("order");
+        const type = searchParams.get("type");
+        const [rows] = await pool.query(
+            `SELECT convicts.id,
+                    convicts.imie,
+                    convicts.nazwisko,
+                    convicts.drugie_imie,
+                    convicts.nazwisko_panienskie_matki,
+                    convicts.pesel,
+                    convicts.miejsce_urodzenia,
+                    convicts.data_osadzenia,
+                    convicts.id_celi,
+                    convicts.id_wyroku,
+                    convicts.data_wyjscia,
+                    sentences.czas_trwania AS wyrok,
+                    sentences.powod AS powod_wyroku
+             FROM convicts
+                      INNER JOIN sentences ON sentences.id = convicts.id_wyroku
+             WHERE data_wyjscia IS NULL
+             ORDER BY ${order == null ? "id" : order} ${type == null ? "asc" : type}`,
+        );
 
         return new Response(JSON.stringify(rows), {
             status: 200,
@@ -30,38 +48,39 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-    const pool = connectDB()
+    const pool = connectDB();
+    console.log("POST request received");
 
     try {
-        
-    const searchParams = req.nextUrl.searchParams
-    const id = searchParams.get('id')
-    const imie = searchParams.get('imie')
-    const nazwisko = searchParams.get('nazwisko')
-    const drugie_imie = searchParams.get('drugie_imie')
-    const nazwisko_panienskie_matki = searchParams.get('nazwisko_panienskie_matki')
-    const pesel = searchParams.get('pesel')
-    const miejsce_urodzenia = searchParams.get('miejsce_urodzenia')
-    const data_osadzenia = searchParams.get('data_osadzenia')
-    const id_wyroku = searchParams.get('id_wyroku')
-    const id_celi = searchParams.get('id_celi')
+        const body = await req.json();
 
-    const query = `INSERT INTO 'convicts'('id', 'imie', 'nazwisko', 'drugie_imie', 'nazwisko_panienskie_matki', 'pesel', 'miejsce_urodzenia', 'data_osadzenia', 'id_wyroku', 'id_celi') VALUES ('${id}','${imie}','${nazwisko}','${drugie_imie}','${nazwisko_panienskie_matki}','${pesel}','${miejsce_urodzenia}','${data_osadzenia}','${id_wyroku}','${id_celi}')`
+        const imie = body.firstName;
+        const nazwisko = body.lastName;
+        const drugie_imie = body.middleName;
+        const nazwisko_panienskie_matki = body.mothersMaidenName;
+        const pesel = body.pesel;
+        const miejsce_urodzenia = body.birthplace;
+        const data_osadzenia = body.incarcerationDate.split("T")[0]; // Extract the date part from the datetime string
+        const id_wyroku = Number(body.sentenceId);
+        const id_celi = Number(body.cellId);
 
-    const [result] = await pool.execute(query)
+        const query = `INSERT INTO convicts (imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel,
+                                             miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    return new Response(
-        JSON.stringify({ success: true, insertedId: (result as any).insertId }),
-        {
+        const values = [imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi];
+
+        console.log("query: ", query);
+
+        const [result] = await pool.execute(query, values);
+        return new Response(JSON.stringify({ success: true, insertedId: (result as any).insertId }), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
             },
-        }
-    );
-       
+        });
     } catch (err) {
-        console.error("Error executing query:", err);
+        //console.error("Error executing query:", err);
         return new Response(JSON.stringify({ error: "Internal server error" }), {
             status: 500,
             headers: {
@@ -71,5 +90,57 @@ export async function POST(req: NextRequest) {
     } finally {
         await pool.end();
     }
+}
 
+export async function PATCH(req: NextRequest) {
+    const pool = connectDB();
+    console.log("POST request received");
+
+    try {
+        const body = await req.json();
+
+        const id = body.id; // Assuming you have the id from the request parameters
+        const imie = body.firstName;
+        const nazwisko = body.lastName;
+        const drugie_imie = body.middleName;
+        const nazwisko_panienskie_matki = body.mothersMaidenName;
+        const pesel = body.pesel;
+        const miejsce_urodzenia = body.birthplace;
+        const data_osadzenia = body.incarcerationDate.split("T")[0]; // Extract the date part from the datetime string
+        const id_wyroku = Number(body.sentenceId);
+        const id_celi = Number(body.cellId);
+
+        const query = `UPDATE convicts
+                       SET imie = ?,
+                            nazwisko = ?,
+                            drugie_imie = ?,
+                            nazwisko_panienskie_matki = ?,
+                            pesel = ?,
+                            miejsce_urodzenia = ?,
+                            data_osadzenia = ?,
+                            id_wyroku = ?,
+                            id_celi = ?
+                            WHERE id = ?`;
+        const values = [imie, nazwisko, drugie_imie, nazwisko_panienskie_matki, pesel, miejsce_urodzenia, data_osadzenia, id_wyroku, id_celi, id];
+
+        console.log("query: ", query);
+
+        const [result] = await pool.execute(query, values);
+        return new Response(JSON.stringify({ success: true, insertedId: (result as any).insertId }), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    } catch (err) {
+        //console.error("Error executing query:", err);
+        return new Response(JSON.stringify({ error: "Internal server error" }), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    } finally {
+        await pool.end();
+    }
 }

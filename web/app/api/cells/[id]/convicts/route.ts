@@ -2,7 +2,7 @@ import connectDB from "@/components/api/connectDB";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-    const pool = connectDB()
+    const pool = connectDB();
 
     const idToCheck = params.id;
     try {

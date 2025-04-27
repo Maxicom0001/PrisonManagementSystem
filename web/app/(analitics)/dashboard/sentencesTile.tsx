@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Clock, Users, Building, Gavel, ArrowRight, Calendar, AlertCircle } from "lucide-react";
-import { useHeader } from "@/components/providers/header-title-provider";
-import { useEffect } from "react";
+import { ArrowRight, Gavel } from "lucide-react";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -22,7 +19,6 @@ const itemVariants = {
     },
 };
 
-
 export default function SentencesTile() {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["dashboard/sentences"],
@@ -31,7 +27,7 @@ export default function SentencesTile() {
         retry: false,
     });
 
-    console.log(data)
+    console.log(data);
 
     if (isLoading) return sentencesTileSkeleton();
     if (isError) return <div>Error: {error.message}</div>;
@@ -48,12 +44,7 @@ export default function SentencesTile() {
                 </CardHeader>
                 <CardContent className="pt-4 px-4 flex-1">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
-                        <motion.div
-                            className="flex flex-col"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                        >
+                        <motion.div className="flex flex-col" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                             <span className="text-muted-foreground text-sm">Longest Sentence</span>
                             <span className="text-xl font-bold">{Math.floor(data.sentences.longest.time / 365.25)} years</span>
                             <span className="text-sm text-muted-foreground mt-1">{data.sentences.longest.reason.slice(0, 50)}...</span>
@@ -82,7 +73,7 @@ export default function SentencesTile() {
                         >
                             <span className="text-muted-foreground text-sm">Newest Sentence</span>
                             <span className="text-xl font-bold">{Math.floor(data.sentences.newest.time / 365.25)} years</span>
-                            <span className="text-sm text-muted-foreground mt-1">{data.sentences.newest.reason.slice(0,50)}</span>
+                            <span className="text-sm text-muted-foreground mt-1">{data.sentences.newest.reason.slice(0, 50)}</span>
                             <Button variant="outline" size="sm" className="mt-2">
                                 P-{data.sentences.newest.id}
                             </Button>
@@ -126,42 +117,42 @@ export default function SentencesTile() {
     );
 }
 
-function sentencesTileSkeleton(){
-    return(
+function sentencesTileSkeleton() {
+    return (
         <motion.div variants={itemVariants} className="lg:col-span-2">
-          <Card className="h-full overflow-hidden relative flex flex-col p-0">
-            <CardHeader className="bg-amber-500/5 pb-2 pt-4 px-4 m-0 rounded-t-lg">
-              <div className="flex items-center gap-2">
-                <div className="h-5 w-5 rounded-full bg-amber-200 animate-pulse"></div>
-                <div className="h-6 w-28 bg-amber-200 rounded-md animate-pulse"></div>
-              </div>
-              <div className="h-4 w-56 bg-muted rounded-md animate-pulse mt-1"></div>
-            </CardHeader>
-            <CardContent className="pt-4 px-4 flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
-                {[0, 1, 2].map((i) => (
-                  <div key={i} className="flex flex-col">
-                    <div className="h-4 w-32 bg-muted rounded-md animate-pulse mb-2"></div>
-                    <div className="h-7 w-20 bg-muted rounded-md animate-pulse"></div>
-                    <div className="h-4 w-28 bg-muted rounded-md animate-pulse mt-1"></div>
-                    <div className="h-8 w-20 bg-muted rounded-md animate-pulse mt-2"></div>
-                  </div>
-                ))}
-              </div>
+            <Card className="h-full overflow-hidden relative flex flex-col p-0">
+                <CardHeader className="bg-amber-500/5 pb-2 pt-4 px-4 m-0 rounded-t-lg">
+                    <div className="flex items-center gap-2">
+                        <div className="h-5 w-5 rounded-full bg-amber-200 animate-pulse"></div>
+                        <div className="h-6 w-28 bg-amber-200 rounded-md animate-pulse"></div>
+                    </div>
+                    <div className="h-4 w-56 bg-muted rounded-md animate-pulse mt-1"></div>
+                </CardHeader>
+                <CardContent className="pt-4 px-4 flex-1">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        {[0, 1, 2].map((i) => (
+                            <div key={i} className="flex flex-col">
+                                <div className="h-4 w-32 bg-muted rounded-md animate-pulse mb-2"></div>
+                                <div className="h-7 w-20 bg-muted rounded-md animate-pulse"></div>
+                                <div className="h-4 w-28 bg-muted rounded-md animate-pulse mt-1"></div>
+                                <div className="h-8 w-20 bg-muted rounded-md animate-pulse mt-2"></div>
+                            </div>
+                        ))}
+                    </div>
 
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                {[0, 1].map((i) => (
-                  <div key={i} className="flex flex-col items-center p-3 bg-amber-50 dark:bg-amber-950/20 rounded-lg">
-                    <div className="h-4 w-16 bg-muted rounded-md animate-pulse mb-2"></div>
-                    <div className="h-7 w-16 bg-muted rounded-md animate-pulse"></div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter className="bg-amber-500/5 py-2 mt-auto w-full px-4">
-              <div className="h-8 w-36 bg-muted rounded-md animate-pulse ml-auto"></div>
-            </CardFooter>
-          </Card>
+                    <div className="grid grid-cols-2 gap-4 mt-6">
+                        {[0, 1].map((i) => (
+                            <div key={i} className="flex flex-col items-center p-3 bg-amber-50 dark:bg-amber-950/20 rounded-lg">
+                                <div className="h-4 w-16 bg-muted rounded-md animate-pulse mb-2"></div>
+                                <div className="h-7 w-16 bg-muted rounded-md animate-pulse"></div>
+                            </div>
+                        ))}
+                    </div>
+                </CardContent>
+                <CardFooter className="bg-amber-500/5 py-2 mt-auto w-full px-4">
+                    <div className="h-8 w-36 bg-muted rounded-md animate-pulse ml-auto"></div>
+                </CardFooter>
+            </Card>
         </motion.div>
-    )
+    );
 }
