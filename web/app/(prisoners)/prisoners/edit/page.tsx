@@ -137,8 +137,8 @@ export default function PrisonerForm() {
         });
         await patchData("../api/convicts", data);
         form.reset();
-        queryClient.invalidateQueries({ queryKey: ["prisoners"]});
-        queryClient.invalidateQueries({ queryKey: ["dashboard/prisoners"]});
+        await queryClient.invalidateQueries({ queryKey: ["prisoners"]});
+        await queryClient.invalidateQueries({ queryKey: ["dashboard/prisoners"]});
         router.push("/prisoners");
     };
     return (

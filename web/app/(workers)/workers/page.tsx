@@ -113,14 +113,15 @@ export default function EmployeeDatabase() {
     };
 
     // Function to handle deleting
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: number) => {
         deleteData("api/workers/" + id, {});
         refetch();
         toast.success("Employee deleted successfully", {
             description: "The employee has been removed from the database.",
         });
-        queryClient.invalidateQueries({ queryKey: ["workers"] });
-        queryClient.refetchQueries({ queryKey: ["workers"] });
+        await queryClient.invalidateQueries({ queryKey: ["workers"] });
+        await queryClient.refetchQueries({ queryKey: ["workers"], exact: true, type: "active" });
+        refetch();
         
     };
 

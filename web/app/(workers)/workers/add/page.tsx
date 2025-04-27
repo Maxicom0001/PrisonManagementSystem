@@ -99,8 +99,8 @@ export default function PrisonerForm() {
         });
         await postData("../api/workers", data);
         form.reset();
-        queryClient.invalidateQueries({queryKey: ["workers"]});
-        queryClient.invalidateQueries({queryKey: ["dashboard/workers"]});
+        await queryClient.invalidateQueries({queryKey: ["workers"]});
+        await queryClient.invalidateQueries({queryKey: ["dashboard/workers"]});
         router.push("/workers");
     };
     return (

@@ -14,7 +14,6 @@ import Link from "next/link";
 import { useHeader } from "@/components/providers/header-title-provider";
 import fetchData from "@/components/api/fetch-data";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import Notes from "./notes";
 import deleteData from "@/components/api/delete-data";
 import { toast, ToastT } from "sonner";
 import { useRouter } from "next/navigation";
@@ -78,6 +77,7 @@ export default function PrisonerDatabase() {
         queryKey: ["prisoners"],
         queryFn: () => fetchData(url),
         refetchOnWindowFocus: false,
+        refetchOnMount: true,
         retry: false,
     });
 
@@ -113,15 +113,16 @@ export default function PrisonerDatabase() {
     };
 
     // Funkcja do obsługi usuwania
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: number) => {
         deleteData("api/convicts/" + id, {});
         setExpandedId(null);
         toast.success("Prisoner deleted successfully", {
             description: "The prisoner has been successfully deleted from the database.",
         });
-        queryClient.invalidateQueries({queryKey: ["prisoners"]});
-        queryClient.invalidateQueries({queryKey: ["dashboard/prisoners"]});
-        queryClient.refetchQueries({queryKey: ["prisoners"]});
+      
+        await queryClient.invalidateQueries({queryKey: ["prisoners"]});
+        await queryClient.invalidateQueries({queryKey: ["dashboard/prisoners"]});
+        await queryClient.refetchQueries({queryKey: ["prisoners"], exact: true, type: "active"});
     };
 
     // Data in selected order is selected from database, and becasue of that we need to change the url
