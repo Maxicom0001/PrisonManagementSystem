@@ -123,6 +123,7 @@ export default function PrisonerDatabase() {
         await queryClient.invalidateQueries({queryKey: ["prisoners"]});
         await queryClient.invalidateQueries({queryKey: ["dashboard/prisoners"]});
         await queryClient.refetchQueries({queryKey: ["prisoners"], exact: true, type: "active"});
+        await refetch();
     };
 
     // Data in selected order is selected from database, and becasue of that we need to change the url

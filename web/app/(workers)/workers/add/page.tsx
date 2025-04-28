@@ -170,8 +170,6 @@ export default function PrisonerForm() {
                                                     placeholder="PESEL"
                                                     maxLength={11}
                                                     {...field}
-                                                    onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
-                                                    type={"number"}
                                                 />
                                             </FormControl>
                                             <FormMessage />
